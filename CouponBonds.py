@@ -13,7 +13,7 @@ class CouponBond:
         Assumes treasuries are issued at par and are compounded semi-annually
 
         Parameters:
-            face_value (float): The bond's face value. 111
+            face_value (float): The bond's face value.
             ytm (float): Current market yield to maturity of the bond.
             maturity_years (float): Years until maturity.
             frequency (int): Coupon payment frequency and compounding frequency per year(default is 2 for semi-annual).
