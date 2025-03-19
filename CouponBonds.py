@@ -27,7 +27,8 @@ class CouponBond:
         self.periods = int(self.maturity_years * self.frequency)
         self.cash_flow_dates = pd.Series([issue_date + timedelta(weeks=26*i) for i in range(1, self.periods + 1)])
     
-    def cash_flows(self):
+    @property
+    def cashflows(self):
         """
         Calculates the cash flows of the bond.
 
@@ -43,6 +44,7 @@ class CouponBond:
         cash_flows[-1] += self.face_value  # Adding face value at maturity
         return cash_flows
     
+    @property
     def discount_factors(self):
         """ returns the discount factors as a numpy array"""
 
@@ -50,6 +52,7 @@ class CouponBond:
 
         return np.array(discount_factors_list).T
 
+    @property
     def price(self):
         """
         Calculates the bond's price. Since we assume Treasuries are issued at par, the price should be 100
@@ -60,11 +63,12 @@ class CouponBond:
         """
         cash_flows = self.cashflows
 
-        discounts = self.discount_factors()
+        discounts = self.discount_factors
         price = discounts@cash_flows
 
         return price[0]
 
+    @property
     def modified_duration(self):
         """
         Calculates the bond's modified duration.
@@ -78,8 +82,9 @@ class CouponBond:
         der_discount = np.array([-i/self.frequency *(1+ y/self.frequency)**(-i-1) for i in range(1,self.periods + 1)]).T
         fprime = der_discount @ self.cashflows 
 
-        return - fprime / self.price()
+        return - fprime / self.price
     
+    @property
     def macaulay_duration(self):
         """
         Calculates the Macaulay duration of the bond.
@@ -88,8 +93,9 @@ class CouponBond:
             float: Macaulay duration.
         """
 
-        return  (1+self.ytm/self.frequency) * self.modified_duration()
+        return  (1+self.ytm/self.frequency) * self.modified_duration
 
+    @property
     def convexity(self):
         """
         Calculates the convexity of the bond.
@@ -104,7 +110,7 @@ class CouponBond:
         der_2_discount = np.array([ i*(i+1) /(self.frequency)**2 *(1+self.ytm/self.frequency)**(-i-2) for i in range(1,self.periods + 1)]).T
         f_2_prime = der_2_discount @ self.cashflows
         
-        return f_2_prime/self.price()
+        return f_2_prime/self.price
 
     def value_at_risk(self, confidence_level=0.95):
         """
@@ -116,61 +122,11 @@ class CouponBond:
         Returns:
             float: Estimated VaR for the bond.
         """
-        modified_duration = self.modified_duration()
-        convexity = self.convexity()
+        modified_duration = self.modified_duration
+        convexity = self.convexity
         yield_shock = np.percentile(np.random.normal(0, 0.01, 10000), 1 - confidence_level)
-        price_change = -self.price() * (modified_duration * yield_shock + 0.5 * convexity * yield_shock**2)
+        price_change = -self.price * (modified_duration * yield_shock + 0.5 * convexity * yield_shock**2)
         return price_change
-
-    def election_cycle_risk_analysis(self, election_date: int):
-        """
-        Analyzes the bond's performance over an election cycle, six months before and 
-        two weeks post-election.
-
-        Parameters:
-            election_date (datetime): The date of the election.
-
-        Returns:
-            dict: A dictionary with metrics calculated for the election cycle.
-        """
-        start_period = election_date - timedelta(days=6*30)
-        end_period = election_date + timedelta(days=14)
-        
-        if self.issue_date > end_period or self.maturity_date < start_period:
-            return {"error": "Bond is not active during the specified election cycle"}
-
-        ytm = self.ytm
-        mod_duration = self.modified_duration()
-        convexity = self.convexity()
-        election_vasr = self.value_at_risk()
-        
-        analysis_results = {
-            "yield_to_maturity": ytm,
-            "modified_duration": mod_duration,
-            "convexity": convexity,
-            "value_at_risk": election_vasr,
-            "start_period": start_period,
-            "end_period": end_period
-        }
-
-        return analysis_results
-    
-    def calculate_beta(asset_returns, market_returns):
-        """
-        Calculate the beta of an asset relative to the market.
-
-        Parameters:
-            asset_returns (np.array): Array of historical returns of the asset.
-            market_returns (np.array): Array of historical returns of the market.
-
-        Returns:
-            float: The beta of the asset.
-        """
-        covariance_matrix = np.cov(asset_returns, market_returns)
-        covariance = covariance_matrix[0, 1]
-        market_variance = np.var(market_returns, ddof=1)
-        beta = covariance / market_variance
-        return beta
     
     def times_till_coupon(self, current_date):
         """Creating a numpy array to get the values of time till coupon payments given a new time
@@ -298,8 +254,8 @@ class CouponBond:
         return price_series
 
 
-class Treasury(Treasuries):
-    """Creating a class that takes in a Dataframe, and choice of treasury that inherits from the Treasuries class
+class CouponBond_DF(CouponBond):
+    """Creating a class that takes in a Dataframe, and choice of CouponBond that inherits from the CouponBond class
     
     Paramters:
         maturity_years : float or int
@@ -330,7 +286,7 @@ class Treasury(Treasuries):
         return super().new_price(self.par_curve)
     
     def open_position(self):
-        return self.price()
+        return self.price
 
     def close_position(self):
         """A method to get the full closing position of the bond.
