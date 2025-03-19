@@ -327,3 +327,6 @@ class CouponBond_DF(CouponBond):
         coupon_series = date_bool *coupon_payment
 
         return coupon_series+ prices 
+    
+    if __name__ == "__main__"L
+# %%
