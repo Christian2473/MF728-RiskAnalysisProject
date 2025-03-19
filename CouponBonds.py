@@ -254,7 +254,7 @@ class CouponBond_Base:
 
 
 class CouponBond(CouponBond_Base):
-    """Creating a class that takes in a Dataframe, and choice of CouponBond that inherits from the CouponBond class
+    """Creating a class that takes in a Dataframe that inherits from the CouponBond_Base class
     
     Parameters:
         maturity_years : float or int
