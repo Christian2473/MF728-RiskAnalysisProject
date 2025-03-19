@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 class CouponBond:
     def __init__(self, ytm, maturity_years, face_value = 100, frequency=2, issue_date=datetime.today()):
         """
-        Initializes a Coupon Bond object. 123
+        Initializes a Coupon Bond object.
 
         Assumes treasuries are issued at par and are compounded semi-annually
 
