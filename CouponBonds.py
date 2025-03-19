@@ -8,7 +8,7 @@ class CouponBond:
         """
         Initializes a Coupon Bond object.
 
-        Assumes treasuries are issued at par and are compounded semi-annually
+        Assumes Coupon Bonds are issued at par and are compounded semi-annually
 
         Parameters:
             face_value (float): The bond's face value.
@@ -38,7 +38,7 @@ class CouponBond:
         if periods == 1:
             return np.array([self.face_value])
 
-        coupon_payment = self.face_value * self.ytm / self.frequency #since we assume treasuries are issued at par, the coupon payment = the yield to maturity
+        coupon_payment = self.face_value * self.ytm / self.frequency #since we assume coupon bonds are issued at par, the coupon payment = the yield to maturity
         cash_flows = np.full(periods, coupon_payment)
         cash_flows[-1] += self.face_value  # Adding face value at maturity
         return cash_flows
@@ -54,7 +54,7 @@ class CouponBond:
     @property
     def price(self)->float:
         """
-        Calculates the bond's price. Since we assume Treasuries are issued at par, the price should be 100
+        Calculates the bond's price. Since we assume coupon bonds are issued at par, the price should be 100
 
         Returns:
             float: Price of a bond rounded to 2 decimal places.
@@ -127,7 +127,7 @@ class CouponBond:
         price_change = -self.price * (modified_duration * yield_shock + 0.5 * convexity * yield_shock**2)
         return price_change
     
-    def times_till_coupon(self, current_date):
+    def times_till_coupon(self, current_date)-> np.ndarray[float]:
         """Creating a numpy array to get the values of time till coupon payments given a new time
             Returns time till maturity in number of days till coupon/360
         """
@@ -142,7 +142,7 @@ class CouponBond:
 
         return icurve(T)
     
-    def spot_rates(self, S: pd.Series):
+    def spot_rates(self, S: pd.Series)->np.ndarray:
         """Bootstrapping spot rates from a yield curve interpolation"""
 
         # Computing yields from the interpolated yield curve
@@ -169,7 +169,7 @@ class CouponBond:
         
         return s_rates
     
-    def interpolated_spot_curve(self, S:pd.Series, T:float):
+    def interpolated_spot_curve(self, S:pd.Series, T:float)->np.ndarray[float]:
         """Interpolating the Spot Curve given a pandas series containing yields, and a new time T"""
         s_rates = self.spot_rates(S= S)
         tenors = np.arange(.5 , 30+.5, .5)
@@ -289,11 +289,11 @@ class CouponBond_DF(CouponBond):
     def open_position(self):
         return self.price
 
-
+    @property
     def close_position(self):
         """A method to get the full closing position of the bond.
             Accounts for the coupon payment during the period.
-            TAKES ABOUT A MINUTE TO RUN since it calls Treasury.new_price()
+            TAKES ABOUT A MINUTE TO RUN since it calls CouponBond.new_price()
         """
         position = self.new_price().iloc[-1,:][self.maturity_years]
         if self.maturity_years != .5:
@@ -302,13 +302,11 @@ class CouponBond_DF(CouponBond):
         return position 
     
     
-    def price_plus_coupon(self):
+    def price_plus_coupon(self)->pd.Series:
         """Calculates price + coupon payment. 
         
         Note: this is only specified for the analysis period. Not for a general coupon bond
         """        
-
-        
 
         prices = self.new_price()
 
