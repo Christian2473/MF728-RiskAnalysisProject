@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import scipy as sci
+from collections.abc import Callable
 from datetime import datetime, timedelta
 
 class CouponBond:
@@ -28,7 +29,7 @@ class CouponBond:
         self.cash_flow_dates = pd.Series([issue_date + timedelta(weeks=26*i) for i in range(1, self.periods + 1)])
     
     @property
-    def cashflows(self):
+    def cashflows(self)-> np.array[float]:
         """
         Calculates the cash flows of the bond.
 
@@ -45,7 +46,7 @@ class CouponBond:
         return cash_flows
     
     @property
-    def discount_factors(self):
+    def discount_factors(self)->np.array:
         """ returns the discount factors as a numpy array"""
 
         discount_factors_list = [(1+self.ytm/self.frequency)**(-i) for i in range(1,self.periods + 1)]
@@ -53,7 +54,7 @@ class CouponBond:
         return np.array(discount_factors_list).T
 
     @property
-    def price(self):
+    def price(self)->float:
         """
         Calculates the bond's price. Since we assume Treasuries are issued at par, the price should be 100
 
@@ -69,7 +70,7 @@ class CouponBond:
         return price[0]
 
     @property
-    def modified_duration(self):
+    def modified_duration(self)->float:
         """
         Calculates the bond's modified duration.
 
@@ -85,7 +86,7 @@ class CouponBond:
         return - fprime / self.price
     
     @property
-    def macaulay_duration(self):
+    def macaulay_duration(self)->float:
         """
         Calculates the Macaulay duration of the bond.
 
@@ -96,7 +97,7 @@ class CouponBond:
         return  (1+self.ytm/self.frequency) * self.modified_duration
 
     @property
-    def convexity(self):
+    def convexity(self)->float:
         """
         Calculates the convexity of the bond.
 
@@ -112,7 +113,7 @@ class CouponBond:
         
         return f_2_prime/self.price
 
-    def value_at_risk(self, confidence_level=0.95):
+    def value_at_risk(self, confidence_level=0.95)->float:
         """
         Estimates the value at risk (VaR) of the bond based on duration and convexity.
 
@@ -128,7 +129,7 @@ class CouponBond:
         price_change = -self.price * (modified_duration * yield_shock + 0.5 * convexity * yield_shock**2)
         return price_change
     
-    def times_till_coupon(self, current_date):
+    def times_till_coupon(self, current_date)->np.array[float]:
         """Creating a numpy array to get the values of time till coupon payments given a new time
             Returns time till maturity in number of days till coupon/360
         """
@@ -137,13 +138,13 @@ class CouponBond:
         time_till_next_coupon = time_till_next_coupon.apply(lambda x: max(x, 0))
         return np.array(time_till_next_coupon/360)
     
-    def interpolated_yield_curve(self, S: pd.Series, T):
+    def interpolated_yield_curve(self, S: pd.Series, T:float)->float:
         """Returning of yield curve interpolation method given a yield curve (pandas series) and time of maturity T."""
         icurve = sci.interpolate.CubicSpline(x= S.index, y = S)
 
         return icurve(T)
     
-    def spot_rates(self, S: pd.Series):
+    def spot_rates(self, S: pd.Series)->np.array[float]:
         """Bootstrapping spot rates from a yield curve interpolation"""
 
         # Computing yields from the interpolated yield curve
@@ -170,7 +171,7 @@ class CouponBond:
         
         return s_rates
     
-    def interpolated_spot_curve(self, S:pd.Series, T):
+    def interpolated_spot_curve(self, S:pd.Series, T:float)->pd.Series:
         """Interpolating the Spot Curve given a pandas series containing yields, and a new time T"""
         s_rates = self.spot_rates(S= S)
         tenors = np.arange(.5 , 30+.5, .5)
@@ -179,7 +180,7 @@ class CouponBond:
         return icurve(T)
 
     
-    def new_price(self, S:pd.DataFrame):
+    def new_price(self, S:pd.DataFrame)->float:
         """Calculating the daily price of a bond given a new yield curve.
         S - S.index : datetime objects or pandas timeseries/timestamps
         Returns a pandas series with price data and indices of the dates
