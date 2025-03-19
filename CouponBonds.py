@@ -284,13 +284,9 @@ class CouponBond_DF(CouponBond):
             pd.Series: A Series of bond prices indexed by dates from the DataFrame.
         """
         return super().new_price(self.par_curve)
-    
-    @property
-    def open_position(self):
-        return self.price
 
     @property
-    def close_position(self):
+    def close_position(self)->pd.Series:
         """A method to get the full closing position of the bond.
             Accounts for the coupon payment during the period.
             TAKES ABOUT A MINUTE TO RUN since it calls CouponBond.new_price()
