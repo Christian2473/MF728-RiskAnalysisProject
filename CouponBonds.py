@@ -297,7 +297,7 @@ class CouponBond_DF(CouponBond):
         
         return position 
     
-    
+    @property
     def price_plus_coupon(self)->pd.Series:
         """Calculates price + coupon payment. 
         
