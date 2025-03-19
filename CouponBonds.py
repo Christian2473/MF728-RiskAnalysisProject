@@ -3,15 +3,11 @@ import numpy as np
 import pandas as pd
 import scipy as sci
 from datetime import datetime, timedelta
-# %%
-def election_day(year):
-    date = pd.Timestamp(year=year, month=11, day=1)
-    return date + pd.offsets.Week(weekday=1)
 
-class Treasuries:
+class CouponBond:
     def __init__(self, ytm, maturity_years, face_value = 100, frequency=2, issue_date=datetime.today()):
         """
-        Initializes a Treasury object.
+        Initializes a Coupon Bond object.
 
         Assumes treasuries are issued at par and are compounded semi-annually
 
