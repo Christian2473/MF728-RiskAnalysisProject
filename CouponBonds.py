@@ -324,4 +324,3 @@ class CouponBond(CouponBond_Base):
         coupon_series = date_bool *coupon_payment
 
         return coupon_series+ prices 
-
