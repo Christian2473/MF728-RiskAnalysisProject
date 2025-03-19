@@ -256,16 +256,22 @@ class CouponBond_Base:
 class CouponBond(CouponBond_Base):
     """Creating a class that takes in a Dataframe, and choice of CouponBond that inherits from the CouponBond class
     
-    Paramters:
+    Parameters:
         maturity_years : float or int
         df: pandas dataframe containing par yield curves
         face_value: int. assumes 100 face
         frequency: float. compounding frequency. assume semi-annual compounding
     
     """
-    def __init__(self, maturity_years, df: pd.DataFrame, face_value_ = 100, 
-                 frequency_=2):
-        
+    def __init__(self, maturity_years:float, df: pd.DataFrame, face_value_ :float = 100, frequency_:float =2):
+        """Init method for Coupon bond
+
+        Args:
+            maturity_years (float): 
+            df (pd.DataFrame): Dataframe with Par Curve Data
+            face_value_ (float, optional): . Defaults to 100.
+            frequency_ (float, optional): Defaults to 2.
+        """
         # collecting data from the dataframe
         ytm_ = df.iloc[0,:][maturity_years]
         i_date = df.index[0]
