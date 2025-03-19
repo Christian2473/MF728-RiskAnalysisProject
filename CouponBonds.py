@@ -1,8 +1,6 @@
-# %%
 import numpy as np
 import pandas as pd
 import scipy as sci
-from warnings import deprecated
 from datetime import datetime, timedelta
 
 class CouponBond:
@@ -29,7 +27,7 @@ class CouponBond:
         self.cash_flow_dates = pd.Series([issue_date + timedelta(weeks=26*i) for i in range(1, self.periods + 1)])
     
     @property
-    def cashflows(self)-> np.array[float]:
+    def cashflows(self):
         """
         Calculates the cash flows of the bond.
 
@@ -46,7 +44,7 @@ class CouponBond:
         return cash_flows
     
     @property
-    def discount_factors(self)->np.array:
+    def discount_factors(self):
         """ returns the discount factors as a numpy array"""
 
         discount_factors_list = [(1+self.ytm/self.frequency)**(-i) for i in range(1,self.periods + 1)]
@@ -129,7 +127,7 @@ class CouponBond:
         price_change = -self.price * (modified_duration * yield_shock + 0.5 * convexity * yield_shock**2)
         return price_change
     
-    def times_till_coupon(self, current_date)->np.array[float]:
+    def times_till_coupon(self, current_date):
         """Creating a numpy array to get the values of time till coupon payments given a new time
             Returns time till maturity in number of days till coupon/360
         """
@@ -144,7 +142,7 @@ class CouponBond:
 
         return icurve(T)
     
-    def spot_rates(self, S: pd.Series)->np.array[float]:
+    def spot_rates(self, S: pd.Series):
         """Bootstrapping spot rates from a yield curve interpolation"""
 
         # Computing yields from the interpolated yield curve
@@ -171,7 +169,7 @@ class CouponBond:
         
         return s_rates
     
-    def interpolated_spot_curve(self, S:pd.Series, T:float)->pd.Series:
+    def interpolated_spot_curve(self, S:pd.Series, T:float):
         """Interpolating the Spot Curve given a pandas series containing yields, and a new time T"""
         s_rates = self.spot_rates(S= S)
         tenors = np.arange(.5 , 30+.5, .5)
@@ -288,11 +286,11 @@ class CouponBond_DF(CouponBond):
         return super().new_price(self.par_curve)
     
     @property
-    def open_position(self)->pd.Series[float]:
+    def open_position(self):
         return self.price
 
-    @deprecated
-    def close_position(self)->pd.Series[float]:
+
+    def close_position(self):
         """A method to get the full closing position of the bond.
             Accounts for the coupon payment during the period.
             TAKES ABOUT A MINUTE TO RUN since it calls Treasury.new_price()
@@ -303,7 +301,7 @@ class CouponBond_DF(CouponBond):
         
         return position 
     
-    @deprecated
+    
     def price_plus_coupon(self):
         """Calculates price + coupon payment. 
         
@@ -326,6 +324,4 @@ class CouponBond_DF(CouponBond):
         coupon_series = date_bool *coupon_payment
 
         return coupon_series+ prices 
-    
-    if __name__ == "__main__"L
-# %%
+
