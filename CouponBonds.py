@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import scipy as sci
 from warnings import deprecated
-from collections.abc import Callable
 from datetime import datetime, timedelta
 
 class CouponBond:
