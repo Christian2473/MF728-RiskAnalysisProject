@@ -3,7 +3,7 @@ import pandas as pd
 import scipy as sci
 from datetime import datetime, timedelta
 
-class CouponBond:
+class CouponBond_Base:
     def __init__(self, ytm, maturity_years, face_value = 100, frequency=2, issue_date=datetime.today()):
         """
         Initializes a Coupon Bond object.
@@ -253,7 +253,7 @@ class CouponBond:
         return price_series
 
 
-class CouponBond_DF(CouponBond):
+class CouponBond(CouponBond_Base):
     """Creating a class that takes in a Dataframe, and choice of CouponBond that inherits from the CouponBond class
     
     Paramters:
