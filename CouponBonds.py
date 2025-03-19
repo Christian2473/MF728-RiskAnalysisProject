@@ -27,7 +27,7 @@ class CouponBond:
         self.cash_flow_dates = pd.Series([issue_date + timedelta(weeks=26*i) for i in range(1, self.periods + 1)])
     
     @property
-    def cashflows(self):
+    def cashflows(self)-> np.ndarray:
         """
         Calculates the cash flows of the bond.
 
@@ -44,7 +44,7 @@ class CouponBond:
         return cash_flows
     
     @property
-    def discount_factors(self):
+    def discount_factors(self)-> np.ndarray:
         """ returns the discount factors as a numpy array"""
 
         discount_factors_list = [(1+self.ytm/self.frequency)**(-i) for i in range(1,self.periods + 1)]
