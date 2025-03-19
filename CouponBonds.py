@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import scipy as sci
+from warnings import deprecated
 from collections.abc import Callable
 from datetime import datetime, timedelta
 
@@ -274,7 +275,8 @@ class CouponBond_DF(CouponBond):
         self.par_curve = df
         super().__init__(ytm_, maturity_years, face_value_, frequency_, i_date)
     
-    def new_price(self):
+    @property
+    def new_price(self)->pd.Series:
         """
         Calculate the daily price of the bond using the DataFrame passed during initialization.
         
@@ -286,10 +288,12 @@ class CouponBond_DF(CouponBond):
         """
         return super().new_price(self.par_curve)
     
-    def open_position(self):
+    @property
+    def open_position(self)->pd.Series[float]:
         return self.price
 
-    def close_position(self):
+    @deprecated
+    def close_position(self)->pd.Series[float]:
         """A method to get the full closing position of the bond.
             Accounts for the coupon payment during the period.
             TAKES ABOUT A MINUTE TO RUN since it calls Treasury.new_price()
@@ -300,11 +304,14 @@ class CouponBond_DF(CouponBond):
         
         return position 
     
+    @deprecated
     def price_plus_coupon(self):
         """Calculates price + coupon payment. 
         
         Note: this is only specified for the analysis period. Not for a general coupon bond
         """        
+
+        
 
         prices = self.new_price()
 
