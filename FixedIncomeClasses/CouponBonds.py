@@ -273,11 +273,12 @@ class CouponBond(CouponBond_Base):
             face_value_ (float, optional): . Defaults to 100.
             frequency_ (float, optional): Defaults to 2.
         """
+
         # collecting data from the dataframe
         if "date" in df.columns or "Date" in df.columns:
             raise IndexError("Please set the date column to the index of your dataframe")
-        if df.index.dtype is datetime or df.index.dtype is pd.Timestamp:
-            raise IndexError("Make Sure the index type is DateTime or Timestamp")
+        elif not isinstance(df.index, pd.DatetimeIndex):
+            raise IndexError("Make Sure the index type is DateTime")
         
         self.par_curve = df.rename(columns={
             col: float(col.split(" ")[0])/12
