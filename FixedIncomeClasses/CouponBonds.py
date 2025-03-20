@@ -268,14 +268,26 @@ class CouponBond(CouponBond_Base):
 
         Args:
             maturity_years (float): 
-            df (pd.DataFrame): Dataframe with Par Curve Data
+            df (pd.DataFrame): Dataframe with Par Curve Data | The first row of the dataframe must be the issue date
+                    Please make sure the date column is the index, and is of type pd.TimeStamp or dt.DateTime
             face_value_ (float, optional): . Defaults to 100.
             frequency_ (float, optional): Defaults to 2.
         """
         # collecting data from the dataframe
-        ytm_ = df.iloc[0,:][maturity_years]
+        if "date" in df.columns or "Date" in df.columns:
+            raise IndexError("Please set the date column to the index of your dataframe")
+        if df.index.dtype is datetime or df.index.dtype is pd.Timestamp:
+            raise IndexError("Make Sure the index type is DateTime or Timestamp")
+        
+        self.par_curve = df.rename(columns={
+            col: float(col.split(" ")[0])/12
+            if col.split(" ")[-1] == "Mo" 
+            else int(col.split(" ")[0])
+            for col in df.columns
+            })
+
+        ytm_ = self.par_curve.iloc[0,:][maturity_years]
         i_date = df.index[0]
-        self.par_curve = df
         super().__init__(ytm_, maturity_years, face_value_, frequency_, i_date)
     
     @property
@@ -290,18 +302,6 @@ class CouponBond(CouponBond_Base):
             pd.Series: A Series of bond prices indexed by dates from the DataFrame.
         """
         return super().new_price(self.par_curve)
-
-    @property
-    def close_position(self)->pd.Series:
-        """A method to get the full closing position of the bond.
-            Accounts for the coupon payment during the period.
-            TAKES ABOUT A MINUTE TO RUN since it calls CouponBond.new_price()
-        """
-        position = self.new_price().iloc[-1,:][self.maturity_years]
-        if self.maturity_years != .5:
-            position += self.cashflows[0]
-        
-        return position 
     
     @property
     def price_plus_coupon(self)->pd.Series:
@@ -310,7 +310,7 @@ class CouponBond(CouponBond_Base):
         Note: this is only specified for the analysis period. Not for a general coupon bond
         """        
 
-        prices = self.new_price()
+        prices = self.new_price
 
         if self.maturity_years == .5:
             return prices
