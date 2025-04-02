@@ -64,8 +64,8 @@ class CouponBond_Base:
 
         return np.array(discount_factors_list).T
 
-    @functools.lru_cache(maxsize=None)
     @property
+    @functools.lru_cache(maxsize=None)
     def price(self)->float:
         """
         Calculates the bond's price. Since we assume coupon bonds are issued at par, the price should be 100
@@ -315,8 +315,8 @@ class CouponBond(CouponBond_Base):
             tuple(tuple(row) for row in self.par_curve.values)
         ))
 
-    @functools.lru_cache(maxsize=None)
     @property
+    @functools.lru_cache(maxsize=None)
     def new_price(self)->pd.Series:
         """
         Calculate the daily price of the bond using the DataFrame passed during initialization.
@@ -329,8 +329,8 @@ class CouponBond(CouponBond_Base):
         """
         return super().new_price(self.par_curve)
     
-    @functools.lru_cache(maxsize=None)
     @property
+    @functools.lru_cache(maxsize=None)
     def price_plus_coupon(self)->pd.Series:
         """Calculates price + coupon payment. 
         
