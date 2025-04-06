@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import scipy as sci
 from datetime import datetime, timedelta
+import functools
 
 class CouponBond_Base:
     def __init__(self, ytm, maturity_years, face_value = 100, frequency=2, issue_date=datetime.today()):
@@ -26,6 +27,18 @@ class CouponBond_Base:
         self.periods = int(self.maturity_years * self.frequency)
         self.cash_flow_dates = pd.Series([issue_date + timedelta(weeks=26*i) for i in range(1, self.periods + 1)])
     
+    def __hash__(self):
+        """
+        Hash function for caching purposes. Includes all relevant attributes.
+        """
+        return hash((
+            self.face_value,
+            self.ytm,
+            self.maturity_years,
+            self.frequency,
+            self.issue_date
+        ))
+
     @property
     def cashflows(self)-> np.ndarray:
         """
@@ -52,6 +65,7 @@ class CouponBond_Base:
         return np.array(discount_factors_list).T
 
     @property
+    @functools.lru_cache(maxsize=None)
     def price(self)->float:
         """
         Calculates the bond's price. Since we assume coupon bonds are issued at par, the price should be 100
@@ -291,7 +305,18 @@ class CouponBond(CouponBond_Base):
         i_date = df.index[0]
         super().__init__(ytm_, maturity_years, face_value_, frequency_, i_date)
     
+    def __hash__(self):
+        """
+        Hash function for caching purposes. Includes all relevant attributes and the par_curve DataFrame.
+        """
+        return hash((
+            super().__hash__(),
+            tuple(self.par_curve.index),
+            tuple(tuple(row) for row in self.par_curve.values)
+        ))
+
     @property
+    @functools.lru_cache(maxsize=None)
     def new_price(self)->pd.Series:
         """
         Calculate the daily price of the bond using the DataFrame passed during initialization.
@@ -305,6 +330,7 @@ class CouponBond(CouponBond_Base):
         return super().new_price(self.par_curve)
     
     @property
+    @functools.lru_cache(maxsize=None)
     def price_plus_coupon(self)->pd.Series:
         """Calculates price + coupon payment. 
         
@@ -324,4 +350,4 @@ class CouponBond(CouponBond_Base):
 
         coupon_series = date_bool *coupon_payment
 
-        return coupon_series+ prices 
+        return coupon_series+ prices
