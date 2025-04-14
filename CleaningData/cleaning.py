@@ -94,16 +94,17 @@ def build_bond_dict(base_dir):
 base_path = "/Users/maksymnaumenko/Desktop/MF728-RiskAnalysisProject/Data"
 bond_ratings = build_bond_dict(base_path)
 
-# How data looks
-# for rating in bond_ratings:
-#     print(f"\n Rating: {rating}")
-#     for bond_id in bond_ratings[rating]:
-#         bond = bond_ratings[rating][bond_id]
-#         print(f"Bond ID: {bond_id}")
-#         print(f"Ticker: {bond['ticker']}")
-#         print(f"Maturity: {bond['maturity']}")
-#         print(f"Data sample:\n{bond['data'].head()}\n")
-
+# See structure of the data
 for rating in bond_ratings:
-    bond_ids = list(bond_ratings[rating].keys())
-    print(f"{rating}: {bond_ids}")
+    print(f"\n Rating: {rating}")
+    for bond_id in bond_ratings[rating]:
+        bond = bond_ratings[rating][bond_id]
+        print(f"Bond ID: {bond_id}")
+        print(f"Ticker: {bond['ticker']}")
+        print(f"Maturity: {bond['maturity']}")
+        print(f"Data sample:\n{bond['data'].head()}\n")
+
+# # see all ratings and bonds IDs (example: AAA: ['MM117769 Corp', 'EK719746 Corp', 'DD108562 Corp'])
+# for rating in bond_ratings:
+#     bond_ids = list(bond_ratings[rating].keys())
+#     print(f"{rating}: {bond_ids}")
