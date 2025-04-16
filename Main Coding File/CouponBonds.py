@@ -122,39 +122,6 @@ class CouponBonds:
         yield_shock = np.percentile(np.random.normal(0, 0.01, 10000), 1 - confidence_level)
         price_change = -self.price() * (modified_duration * yield_shock + 0.5 * convexity * yield_shock**2)
         return price_change
-
-    def election_cycle_risk_analysis(self, election_date: int):
-        """
-        Analyzes the bond's performance over an election cycle, six months before and 
-        two weeks post-election.
-
-        Parameters:
-            election_date (datetime): The date of the election.
-
-        Returns:
-            dict: A dictionary with metrics calculated for the election cycle.
-        """
-        start_period = election_date - timedelta(days=6*30)
-        end_period = election_date + timedelta(days=14)
-        
-        if self.issue_date > end_period or self.maturity_date < start_period:
-            return {"error": "Bond is not active during the specified election cycle"}
-
-        ytm = self.ytm
-        mod_duration = self.modified_duration()
-        convexity = self.convexity()
-        election_vasr = self.value_at_risk()
-        
-        analysis_results = {
-            "yield_to_maturity": ytm,
-            "modified_duration": mod_duration,
-            "convexity": convexity,
-            "value_at_risk": election_vasr,
-            "start_period": start_period,
-            "end_period": end_period
-        }
-
-        return analysis_results
     
     def calculate_beta(asset_returns, market_returns):
         """
@@ -364,10 +331,5 @@ class CouponBond(CouponBonds):
         coupon_series = date_bool *coupon_payment
 
         return coupon_series+ prices 
-
-
-
-
-
 
 # %%
