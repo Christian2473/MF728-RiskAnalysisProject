@@ -5,7 +5,7 @@ import scipy as sci
 from datetime import datetime, timedelta
 # %%
 
-class Treasuries:
+class CouponBonds:
     def __init__(self, ytm, maturity_years, face_value = 100, frequency=2, issue_date=datetime.today()):
         """
         Initializes a Treasury object.
@@ -299,7 +299,7 @@ class Treasuries:
         return price_series
 
 
-class Treasury(Treasuries):
+class CouponBond(CouponBonds):
     """Creating a class that takes in a Dataframe, and choice of treasury that inherits from the Treasuries class
     
     Paramters:
