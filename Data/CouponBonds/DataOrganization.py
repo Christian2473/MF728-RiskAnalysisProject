@@ -29,6 +29,13 @@ def organize_data(path: str) -> None:
     sheets: List[str] = excel_file.sheet_names
     sheets: list[str] = excel_file.sheet_names
 
+    try:
+        os.makedirs("CouponBondData")
+    except FileExistsError:
+        pass
+    finally:
+        os.chdir("CouponBondData")
+
     for sheet_name in sheets:
 
         if sheet_name in ["Data", "Temp", "", " "]:
@@ -71,7 +78,7 @@ def clean_folders(num_files: int = 4) -> None:
             shutil.rmtree(folder)
                 
 if __name__ == "__main__":
-    os.chdir("Data/CouponBondData")
+    os.chdir("Data/CouponBonds")
 
     # Getting the rating of the bonds from an excel sheet path
     ratings = organize_data("Temp_Bloomberg_Data.xlsx")
