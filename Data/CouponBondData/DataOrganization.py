@@ -15,7 +15,7 @@ def open_folder(path: str):
         yield
     finally:
         os.chdir(cwd)
-    
+        
 
 def organize_data(path: str) -> None:
     """Getting the rating of the bonds from an excel sheet path
