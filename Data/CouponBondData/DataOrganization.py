@@ -66,6 +66,9 @@ def clean_folders(num_files: int = 4) -> None:
 
             if boolean:
                 shutil.rmtree(folder)
+            
+        if folder == "NR":
+            shutil.rmtree(folder)
                 
 if __name__ == "__main__":
     os.chdir("Data/CouponBondData")
