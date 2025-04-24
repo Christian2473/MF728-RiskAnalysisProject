@@ -2,7 +2,7 @@ import pandas as pd
 import os
 from typing import Set
 
-def get_rating(path: str) -> Set:
+def organize_data(path: str) -> Set:
     """Getting the rating of the bonds from an excel sheet path
 
     Args:
@@ -24,24 +24,24 @@ def get_rating(path: str) -> Set:
             if not os.path.exists(rating):
                 os.makedirs(rating)
 
-            # Setting the Working Directory
+            # Changing the Directory
             os.chdir(rating)
+            
+            file_path = os.path.join(os.getcwd(), sheet_name + ".csv")
 
-            sheet_df = excel_file.parse(sheet_name)
-            sheet_df.to_csv(f"{sheet_name}.csv", index=False)
+            # Checking if the file already exists
+            if not os.path.exists(file_path):
+                sheet_df = excel_file.parse(sheet_name)
+                sheet_df.to_csv(f"{sheet_name}.csv", index=False)
 
             # Exiting Out of the Directory
             os.chdir("..")
-
-    return bond_rating_set
-        
-
 
 if __name__ == "__main__":
     os.chdir("Data/CouponBondData")
 
     # Getting the rating of the bonds from an excel sheet path
-    ratings = get_rating("Temp_Bloomberg_Data.xlsx")
+    ratings = organize_data("Temp_Bloomberg_Data.xlsx")
 
 
 
