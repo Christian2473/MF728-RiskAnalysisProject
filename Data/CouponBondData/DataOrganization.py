@@ -12,8 +12,6 @@ def organize_data(path: str) -> Set:
 
     sheets: list[str] = excel_file.sheet_names
 
-    bond_rating_set: Set = set()
-
     for sheet_name in sheets:
 
         if sheet_name in ["Data", "Temp", "", " "]:
@@ -26,7 +24,7 @@ def organize_data(path: str) -> Set:
 
             # Changing the Directory
             os.chdir(rating)
-            
+
             file_path = os.path.join(os.getcwd(), sheet_name + ".csv")
 
             # Checking if the file already exists
