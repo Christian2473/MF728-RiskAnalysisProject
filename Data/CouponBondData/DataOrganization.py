@@ -1,6 +1,8 @@
 import pandas as pd
 import os
+import shutil
 from contextlib import contextmanager
+from typing import List
 
 @contextmanager
 def open_folder(path: str):
@@ -15,7 +17,7 @@ def open_folder(path: str):
         yield
     finally:
         os.chdir(cwd)
-        
+
 
 def organize_data(path: str) -> None:
     """Getting the rating of the bonds from an excel sheet path
@@ -24,7 +26,7 @@ def organize_data(path: str) -> None:
         path (str): Path to the excel file
     """
     excel_file: pd.ExcelFile = pd.ExcelFile(path)
-
+    sheets: List[str] = excel_file.sheet_names
     sheets: list[str] = excel_file.sheet_names
 
     for sheet_name in sheets:
@@ -46,12 +48,33 @@ def organize_data(path: str) -> None:
                     sheet_df = excel_file.parse(sheet_name)
                     sheet_df.to_csv(f"{sheet_name}.csv", index=False)
 
+def clean_folders(num_files: int = 4) -> None:
+    """Cleaning the folders by removing the files that are not needed
+    
+    Args:
+        num_files (int, optional): Number of files to keep. Defaults to 4.
+    """
+
+    for folder in os.listdir():
+        if os.path.isdir(folder):
+
+            boolean = False #pointer 
+            with open_folder(folder):
+                files = os.listdir()
+
+                boolean = len(files) < num_files
+
+            if boolean:
+                shutil.rmtree(folder)
+                
 if __name__ == "__main__":
     os.chdir("Data/CouponBondData")
 
     # Getting the rating of the bonds from an excel sheet path
     ratings = organize_data("Temp_Bloomberg_Data.xlsx")
-
+    
+    # Cleaning the folders by removing the files that are not needed
+    clean_folders()
 
 
 
