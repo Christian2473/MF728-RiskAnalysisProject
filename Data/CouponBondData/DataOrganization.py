@@ -1,8 +1,7 @@
 import pandas as pd
 import os
-from typing import Set
 
-def organize_data(path: str) -> Set:
+def organize_data(path: str) -> None:
     """Getting the rating of the bonds from an excel sheet path
 
     Args:
@@ -17,7 +16,7 @@ def organize_data(path: str) -> Set:
         if sheet_name in ["Data", "Temp", "", " "]:
             continue
         else:
-            rating = sheet_name.split(" ")[0]
+            rating: str = sheet_name.split(" ")[0]
 
             if not os.path.exists(rating):
                 os.makedirs(rating)
