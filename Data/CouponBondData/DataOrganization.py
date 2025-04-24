@@ -52,7 +52,7 @@ def clean_folders(num_files: int = 4) -> None:
     """Cleaning the folders by removing the files that are not needed
     
     Args:
-        num_files (int, optional): Number of files to keep. Defaults to 4.
+        num_files (int, optional): Number of files threshold to keep. Defaults to 4.
     """
 
     for folder in os.listdir():
