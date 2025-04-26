@@ -86,10 +86,19 @@ def combine_files() -> None:
             price_df = pd.DataFrame()
             yield_df = pd.DataFrame()
 
+            print(folder_path.name)
+
+            if folder_path.name == "PriceData" or folder_path.name == "YieldData":
+                continue
+
             # Seeing if the files already exist
-            if f"{folder_path.name} Yield.csv" in folder_path.iterdir() or f"{folder_path.name} Price.csv" in os.listdir():
-                os.remove(f"{folder_path.name} Yield.csv")
-                os.remove(f"{folder_path.name} Price.csv")
+            if f"{folder_path.name} Price.csv" in os.listdir():
+                print(folder_path.name)
+                os.remove(f"{folder_path.name} Price.csv") 
+
+            if f"{folder_path.name} Yield.csv" in os.listdir():
+                print(folder_path.name)
+                os.remove(f"{folder_path.name} Yield.csv")   
 
             for i, csv in enumerate(folder_path.iterdir()):
                 
@@ -141,8 +150,11 @@ def combine_files() -> None:
             yield_df.drop("CUSIP", axis=0, inplace=True)
 
             # Saving the dataframes
-            price_df.to_csv(folder_path / f"{folder_path.name} Price.csv", index=True)
-            yield_df.to_csv(folder_path / f"{folder_path.name} Yield.csv", index = True)
+            with open_folder("../PriceData"):
+                price_df.to_csv(f"{folder_path.name} Price.csv", index=True)
+            
+            with open_folder("../YieldData"):
+                yield_df.to_csv(f"{folder_path.name} Yield.csv", index = True)
 
                 
 if __name__ == "__main__":
@@ -153,7 +165,11 @@ if __name__ == "__main__":
         
     # Cleaning the folders by removing the files that are not needed
     with open_folder("CouponBondData"):
-        # clean_folders()
+        clean_folders()
+
+        os.makedirs("YieldData", exist_ok=True)
+        os.makedirs("PriceData", exist_ok=True)
+
         combine_files()
 
 
