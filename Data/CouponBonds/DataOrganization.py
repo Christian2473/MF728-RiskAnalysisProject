@@ -86,18 +86,14 @@ def combine_files() -> None:
             price_df = pd.DataFrame()
             yield_df = pd.DataFrame()
 
-            print(folder_path.name)
-
             if folder_path.name == "PriceData" or folder_path.name == "YieldData":
                 continue
 
             # Seeing if the files already exist
             if f"{folder_path.name} Price.csv" in os.listdir():
-                print(folder_path.name)
                 os.remove(f"{folder_path.name} Price.csv") 
 
             if f"{folder_path.name} Yield.csv" in os.listdir():
-                print(folder_path.name)
                 os.remove(f"{folder_path.name} Yield.csv")   
 
             for i, csv in enumerate(folder_path.iterdir()):
@@ -150,10 +146,10 @@ def combine_files() -> None:
             yield_df.drop("CUSIP", axis=0, inplace=True)
 
             # Saving the dataframes
-            with open_folder("../PriceData"):
+            with open_folder(folder_path.parent / "PriceData"):
                 price_df.to_csv(f"{folder_path.name} Price.csv", index=True)
             
-            with open_folder("../YieldData"):
+            with open_folder(folder_path.parent / "YieldData"):
                 yield_df.to_csv(f"{folder_path.name} Yield.csv", index = True)
 
                 
