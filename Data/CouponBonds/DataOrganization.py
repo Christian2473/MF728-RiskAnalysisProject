@@ -1,11 +1,12 @@
 import pandas as pd
 import os
 import shutil
+from pathlib import Path
 from contextlib import contextmanager
 from typing import List
 
 @contextmanager
-def open_folder(path: str):
+def open_folder(path: str | Path):
     """Context Manager that opens the folder and getting the path
 
     Args:
@@ -19,43 +20,41 @@ def open_folder(path: str):
         os.chdir(cwd)
 
 
-def organize_data(path: str) -> None:
+def organize_data(path: str|Path, folder_path: None) -> None:
     """Getting the rating of the bonds from an excel sheet path
 
     Args:
-        path (str): Path to the excel file
+        path (str): path to the excel file
+        folder_path (str): a folder to put all organized data
     """
+
     excel_file: pd.ExcelFile = pd.ExcelFile(path)
     sheets: List[str] = excel_file.sheet_names
-    sheets: list[str] = excel_file.sheet_names
 
-    try:
-        os.makedirs("CouponBondData")
-    except FileExistsError:
-        pass
-    finally:
-        os.chdir("CouponBondData")
+    # I
+    if not folder_path:
+        os.makedirs(folder_path, exist_ok=True) 
 
-    for sheet_name in sheets:
+    with open_folder(folder_path):
+        for sheet_name in sheets:
 
-        if sheet_name in ["Data", "Temp", "", " "]:
-            continue
-        else:
-            rating: str = sheet_name.split(" ")[0]
-            if rating == "NR":
+            if sheet_name in ["Data", "Temp", "", " "]:
                 continue
+            else:
+                rating: str = sheet_name.split(" ")[0]
+                if rating == "NR":
+                    continue
 
-            if not os.path.exists(rating):
-                os.makedirs(rating)
+                os.makedirs(rating, exist_ok=True)
 
-            # Changing the Directory
-            with open_folder(rating):
-                file_path = os.path.join(os.getcwd(), sheet_name + ".csv")
+                # Changing the Directory
+                with open_folder(rating):
+                    file_path = os.path.join(os.getcwd(), sheet_name + ".csv")
 
-                # Checking if the file already exists
-                if not os.path.exists(file_path):
-                    sheet_df = excel_file.parse(sheet_name)
-                    sheet_df.to_csv(f"{sheet_name}.csv", index=False)
+                    # Checking if the file already exists
+                    if not os.path.exists(file_path):
+                        sheet_df = excel_file.parse(sheet_name)
+                        sheet_df.to_csv(f"{sheet_name}.csv", index=False)
 
 def clean_folders(num_files: int = 4) -> None:
     """Cleaning the folders by removing the files that are not needed
@@ -76,15 +75,30 @@ def clean_folders(num_files: int = 4) -> None:
             if boolean:
                 shutil.rmtree(folder)
 
+def combine_files()->None:
+    mainwd = Path.cwd()
+
+    for paths in mainwd.iterdir():
+        with open_folder(paths):
+            folder_path = Path.cwd()
+
+            for csv in folder_path.iterdir():
+                print(pd.read_csv(csv))
+                break
+            break
+
                 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(__file__))
 
     # Getting the rating of the bonds from an excel sheet path
-    ratings = organize_data("Temp_Bloomberg_Data.xlsx")
-    
+    organize_data("Temp_Bloomberg_Data.xlsx", "CouponBondData")
+        
     # Cleaning the folders by removing the files that are not needed
-    clean_folders()
+    with open_folder("CouponBondData"):
+        clean_folders()
+        combine_files()
+
 
 
 
