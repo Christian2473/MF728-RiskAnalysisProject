@@ -4808,15 +4808,16 @@ def main():
     from datetime import datetime
     import matplotlib.dates as mdates
     import seaborn as sns
+    from pathlib import Path
 
     # Mute SettingWithCopyWarning
     pd.options.mode.chained_assignment = None
 
     # Set up directories and file paths
-    data_dir = "."
-    treasury_file = os.path.join(data_dir, "cleaned_treasury_data.csv")
-    price_dir = os.path.join(data_dir, "PriceData")
-    yield_dir = os.path.join(data_dir, "YieldData")
+    data_dir = Path(__file__).parent.parent / "Data" #Adjusted this to have this be relative for everyone
+    treasury_file = os.path.join(data_dir, "TreasuryData/Cleaned-Data/cleaned_treasury_data.csv")
+    price_dir = os.path.join(data_dir, "CouponBonds/PriceData")
+    yield_dir = os.path.join(data_dir, "CouponBonds/YieldData")
 
     # Set up output directory for plots and reports
     output_dir = os.path.join(data_dir, "results")
