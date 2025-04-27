@@ -32,7 +32,6 @@ def organize_data(path: str|Path, folder_path: None) -> None:
     excel_file: pd.ExcelFile = pd.ExcelFile(path)
     sheets: List[str] = excel_file.sheet_names
 
-    # I
     if not folder_path:
         os.makedirs(folder_path, exist_ok=True) 
 
@@ -93,12 +92,6 @@ def combine_files() -> None:
             if folder_path.name == "PriceData" or folder_path.name == "YieldData":
                 continue
 
-            # Seeing if the files already exist
-            if f"{folder_path.name} Price.csv" in os.listdir():
-                os.remove(f"{folder_path.name} Price.csv") 
-
-            if f"{folder_path.name} Yield.csv" in os.listdir():
-                os.remove(f"{folder_path.name} Yield.csv")   
 
             for i, csv in enumerate(folder_path.iterdir()):
                 
