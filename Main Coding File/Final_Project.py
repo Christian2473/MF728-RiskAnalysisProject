@@ -7,6 +7,7 @@ from collections import defaultdict
 from scipy import interpolate
 from scipy.stats import norm, t, kurtosis
 from scipy.optimize import minimize, brentq, fsolve
+from pathlib import Path
 
 ###############################################################################
 #                          YIELD CURVE CONSTRUCTION                           #
@@ -1162,7 +1163,7 @@ class ScenarioAnalysis:
         import numpy as np
 
         # Look for the treasury data file
-        data_file = "cleaned_treasury_data.csv"
+        data_file = (Path(__file__).parent.parent / "Data/TreasuryData/Cleaned-Data/cleaned_treasury_data.csv").resolve() #Adjusted this to have this be relative for everyone
 
         treasury_data = pd.read_csv(data_file)
         treasury_data['Date'] = pd.to_datetime(treasury_data['Date'])
@@ -1326,8 +1327,10 @@ class ScenarioAnalysis:
         import pandas as pd
         import numpy as np
 
+        
+
         # Load the treasury data
-        data_file = "cleaned_treasury_data.csv"
+        data_file = Path(__file__).parent.parent / "Data/TreasuryData/Cleaned-Data/cleaned_treasury_data.csv"
 
         treasury_data = pd.read_csv(data_file)
         treasury_data['Date'] = pd.to_datetime(treasury_data['Date'])
@@ -2009,7 +2012,7 @@ class ScenarioAnalysis:
         # IMPROVED APPROACH: Use actual historical data rather than synthetic data
         # Load historical treasury data
         try:
-            treasury_data = pd.read_csv("cleaned_treasury_data.csv")
+            treasury_data = pd.read_csv(Path(__file__).parent.parent / "Data/TreasuryData/Cleaned-Data/cleaned_treasury_data.csv")
             treasury_data['Date'] = pd.to_datetime(treasury_data['Date'])
 
             # Sort by date and get recent data (last 2 years or 500 days)
@@ -3182,7 +3185,7 @@ class RiskManagementModule:
 
         # Load historical treasury data for yield changes
         try:
-            treasury_data = pd.read_csv("cleaned_treasury_data.csv")
+            treasury_data = pd.read_csv(Path(__file__).parent.parent / "Data/TreasuryData/Cleaned-Data/cleaned_treasury_data.csv")
             treasury_data['Date'] = pd.to_datetime(treasury_data['Date'])
 
             # Sort by date and use recent data (last 500 days)
@@ -4155,7 +4158,7 @@ class RiskManagementModule:
 
         # Add some Treasury bonds as well
         try:
-            treasury_data = pd.read_csv("cleaned_treasury_data.csv")
+            treasury_data = pd.read_csv(treasury_file)
             treasury_data['Date'] = pd.to_datetime(treasury_data['Date'])
 
             # Get most recent treasury data
@@ -4809,18 +4812,19 @@ def main():
     import matplotlib.dates as mdates
     import seaborn as sns
     from pathlib import Path
+    import sys
 
     # Mute SettingWithCopyWarning
     pd.options.mode.chained_assignment = None
 
     # Set up directories and file paths
-    data_dir = Path(__file__).parent.parent / "Data" #Adjusted this to have this be relative for everyone
+    data_dir = (Path(__file__).parent.parent / "Data").resolve() #Adjusted this to have this be relative for everyone
     treasury_file = os.path.join(data_dir, "TreasuryData/Cleaned-Data/cleaned_treasury_data.csv")
-    price_dir = os.path.join(data_dir, "CouponBonds/PriceData")
-    yield_dir = os.path.join(data_dir, "CouponBonds/YieldData")
+    price_dir = os.path.join(data_dir, "CouponBonds/CouponBondData/PriceData")
+    yield_dir = os.path.join(data_dir, "CouponBonds/CouponBondData/YieldData")
 
     # Set up output directory for plots and reports
-    output_dir = os.path.join(data_dir, "results")
+    output_dir = os.path.join(Path(__file__).parent.resolve(), "results")
     os.makedirs(output_dir, exist_ok=True)
 
     # Set basic plot style
