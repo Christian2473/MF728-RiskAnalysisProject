@@ -79,6 +79,10 @@ def clean_folders(num_files: int = 4) -> None:
 def combine_files() -> None:
     mainwd = Path.cwd()
 
+    os.makedirs("YieldData", exist_ok=True)
+    os.makedirs("PriceData", exist_ok=True)
+
+
     for paths in mainwd.iterdir():
         with open_folder(paths):
             folder_path = Path.cwd()
@@ -145,6 +149,8 @@ def combine_files() -> None:
             price_df.drop("CUSIP", axis=0, inplace=True)
             yield_df.drop("CUSIP", axis=0, inplace=True)
 
+
+
             # Saving the dataframes
             with open_folder(folder_path.parent / "PriceData"):
                 price_df.to_csv(f"{folder_path.name} Price.csv", index=True)
@@ -162,10 +168,6 @@ if __name__ == "__main__":
     # Cleaning the folders by removing the files that are not needed
     with open_folder("CouponBondData"):
         clean_folders()
-
-        os.makedirs("YieldData", exist_ok=True)
-        os.makedirs("PriceData", exist_ok=True)
-
         combine_files()
 
 

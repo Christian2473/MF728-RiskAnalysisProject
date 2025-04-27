@@ -1,5 +1,7 @@
 import pandas as pd
 import re
+import os
+from pathlib import Path
 
 def parse_bond_sheet(sheet_df):
     """exxtracting bond data and timeseries data"""
@@ -61,7 +63,7 @@ def build_bond_dict_from_excel(file_path):
     return bond_dict
 
 # enter here base path to the folder
-file_path = "/Users/maksymnaumenko/Desktop/MF728-RiskAnalysisProject/Data/Temp_Bloomberg_Data.xlsx" 
+file_path = os.getcwd() + "/Data/CouponBonds/Temp_Bloomberg_Data.xlsx" 
 bond_data = build_bond_dict_from_excel(file_path)
 
 # See structure of the data
