@@ -1,0 +1,240 @@
+RISK MANAGEMENT STRATEGY PERFORMANCE SUMMARY
+================================================================================
+
+STRATEGIES ANALYZED:
+--------------------------------------------------
+Strategy: Duration Matched (3.00) (duration_matched_3.00)
+  Type: duration_matched
+  Target Duration: 3.00
+  Achieved Duration: 1.66
+
+Strategy: Duration Matched (5.00) (duration_matched_5.00)
+  Type: duration_matched
+  Target Duration: 5.00
+  Achieved Duration: 5.82
+
+Strategy: Duration Matched (7.00) (duration_matched_7.00)
+  Type: duration_matched
+  Target Duration: 7.00
+  Achieved Duration: 6.90
+
+Strategy: Convexity Enhanced (5.00) (convexity_enhanced_5.00)
+  Type: convexity_enhanced
+  Target Duration: 5.00
+  Achieved Duration: 6.87
+  Target Convexity: 38.1724
+  Achieved Convexity: 69.3628
+
+Strategy: VaR Optimized (3.00%) (var_optimized_3.00)
+  Type: var_optimized
+  Target VaR: 3.00%
+  Achieved VaR: 0.42%
+
+Strategy: Credit Diversified (5.00) (credit_diversified_5.00)
+  Type: credit_diversified
+  Target Duration: 5.00
+  Achieved Duration: 6.32
+  Credit Allocations: A+: 16.7%, AA-: 16.7%, BBB: 16.7%, AA+: 16.7%, BBB+: 16.7%, A: 16.7%
+
+Strategy: Barbell Strategy (5.00) (barbell_5.00)
+  Type: barbell
+  Target Duration: 5.00
+  Achieved Duration: 4.86
+
+Strategy: Bullet Strategy (5.00) (bullet_5.00)
+  Type: bullet
+  Target Duration: 5.00
+  Achieved Duration: 5.45
+
+PERFORMANCE COMPARISON:
+--------------------------------------------------
+Average Performance Across All Scenarios:
+Strategy                  Avg % Change    Worst-Case                Best-Case                
+------------------------------------------------------------------------------------------
+Duration Matched (3.00)   -1.95%          Inflation_Hike_2022 (-12.81%) Parallel_Down_50bps (0.84%)
+Duration Matched (5.00)   -5.32%          Inflation_Hike_2022 (-32.53%) Bull_Flattener_50bps (5.35%)
+Duration Matched (7.00)   -4.36%          Inflation_Hike_2022 (-36.59%) Bull_Flattener_50bps (9.52%)
+Convexity Enhanced (5.00) -5.05%          Inflation_Hike_2022 (-36.35%) Bull_Flattener_50bps (9.91%)
+VaR Optimized (3.00%)     -1.31%          Inflation_Hike_2022 (-10.36%) COVID_Crisis_2020 (0.76%)
+Credit Diversified (5.00) -4.51%          Inflation_Hike_2022 (-34.25%) Bull_Flattener_50bps (7.03%)
+Barbell Strategy (5.00)   -4.79%          Inflation_Hike_2022 (-27.59%) Bull_Flattener_50bps (5.03%)
+Bullet Strategy (5.00)    -4.79%          Inflation_Hike_2022 (-31.23%) Bull_Flattener_50bps (3.91%)
+
+Average Value at Risk (% of Portfolio):
+Strategy                  Historical VaR  Normal VaR      t-dist VaR     
+----------------------------------------------------------------------
+Duration Matched (3.00)   1.53%           1.43%           1.48%          
+Duration Matched (5.00)   5.51%           5.37%           5.54%          
+Duration Matched (7.00)   6.48%           6.51%           6.70%          
+Convexity Enhanced (5.00) 5.90%           5.49%           5.68%          
+VaR Optimized (3.00%)     1.16%           1.20%           1.23%          
+Credit Diversified (5.00) 5.71%           5.62%           5.80%          
+Barbell Strategy (5.00)   4.34%           4.06%           4.20%          
+Bullet Strategy (5.00)    5.09%           4.99%           5.15%          
+
+SCENARIO-SPECIFIC PERFORMANCE:
+--------------------------------------------------
+Scenario: Bear_Flattener_50bps
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   -0.59%          1.66       4.33      
+Duration Matched (5.00)   -0.55%          5.82       49.93     
+Duration Matched (7.00)   -0.52%          6.90       69.04     
+Convexity Enhanced (5.00) -0.52%          6.87       69.36     
+VaR Optimized (3.00%)     -0.43%          1.29       2.85      
+Credit Diversified (5.00) -0.53%          6.28       57.93     
+Barbell Strategy (5.00)   -0.54%          4.86       42.02     
+Bullet Strategy (5.00)    -0.57%          5.45       42.98     
+
+Scenario: Bear_Steepener_50bps
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   -0.16%          1.66       4.33      
+Duration Matched (5.00)   -4.66%          5.82       49.93     
+Duration Matched (7.00)   -7.95%          6.90       69.04     
+Convexity Enhanced (5.00) -8.17%          6.87       69.36     
+VaR Optimized (3.00%)     -0.10%          1.29       2.85      
+Credit Diversified (5.00) -6.01%          6.28       57.93     
+Barbell Strategy (5.00)   -4.34%          4.86       42.02     
+Bullet Strategy (5.00)    -3.46%          5.45       42.98     
+
+Scenario: Bull_Flattener_50bps
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   0.16%           1.66       4.33      
+Duration Matched (5.00)   5.35%           5.82       49.93     
+Duration Matched (7.00)   9.52%           6.90       69.04     
+Convexity Enhanced (5.00) 9.91%           6.87       69.36     
+VaR Optimized (3.00%)     0.10%           1.29       2.85      
+Credit Diversified (5.00) 7.03%           6.28       57.93     
+Barbell Strategy (5.00)   5.03%           4.86       42.02     
+Bullet Strategy (5.00)    3.91%           5.45       42.98     
+
+Scenario: Bull_Steepener_50bps
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   0.59%           1.66       4.33      
+Duration Matched (5.00)   0.55%           5.82       49.93     
+Duration Matched (7.00)   0.52%           6.90       69.04     
+Convexity Enhanced (5.00) 0.53%           6.87       69.36     
+VaR Optimized (3.00%)     0.43%           1.29       2.85      
+Credit Diversified (5.00) 0.53%           6.28       57.93     
+Barbell Strategy (5.00)   0.55%           4.86       42.02     
+Bullet Strategy (5.00)    0.57%           5.45       42.98     
+
+Scenario: COVID_Crisis_2020
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   -2.25%          1.66       4.33      
+Duration Matched (5.00)   -10.54%         5.82       49.93     
+Duration Matched (7.00)   2.26%           6.90       69.04     
+Convexity Enhanced (5.00) -5.37%          6.87       69.36     
+VaR Optimized (3.00%)     0.76%           1.29       2.85      
+Credit Diversified (5.00) -0.97%          6.28       57.93     
+Barbell Strategy (5.00)   -12.22%         4.86       42.02     
+Bullet Strategy (5.00)    -6.16%          5.45       42.98     
+
+Scenario: Inflation_Hike_2022
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   -12.81%         1.66       4.33      
+Duration Matched (5.00)   -32.53%         5.82       49.93     
+Duration Matched (7.00)   -36.59%         6.90       69.04     
+Convexity Enhanced (5.00) -36.35%         6.87       69.36     
+VaR Optimized (3.00%)     -10.36%         1.29       2.85      
+Credit Diversified (5.00) -34.25%         6.28       57.93     
+Barbell Strategy (5.00)   -27.59%         4.86       42.02     
+Bullet Strategy (5.00)    -31.23%         5.45       42.98     
+
+Scenario: Inversion_50bps
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   -0.43%          1.66       4.33      
+Duration Matched (5.00)   2.44%           5.82       49.93     
+Duration Matched (7.00)   4.72%           6.90       69.04     
+Convexity Enhanced (5.00) 4.91%           6.87       69.36     
+VaR Optimized (3.00%)     -0.33%          1.29       2.85      
+Credit Diversified (5.00) 3.37%           6.28       57.93     
+Barbell Strategy (5.00)   2.28%           4.86       42.02     
+Bullet Strategy (5.00)    1.63%           5.45       42.98     
+
+Scenario: Parallel_Down_50bps
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   0.84%           1.66       4.33      
+Duration Matched (5.00)   2.97%           5.82       49.93     
+Duration Matched (7.00)   3.54%           6.90       69.04     
+Convexity Enhanced (5.00) 3.52%           6.87       69.36     
+VaR Optimized (3.00%)     0.65%           1.29       2.85      
+Credit Diversified (5.00) 3.21%           6.28       57.93     
+Barbell Strategy (5.00)   2.48%           4.86       42.02     
+Bullet Strategy (5.00)    2.78%           5.45       42.98     
+
+Scenario: Parallel_Up_100bps
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   -1.64%          1.66       4.33      
+Duration Matched (5.00)   -5.58%          5.82       49.93     
+Duration Matched (7.00)   -6.57%          6.90       69.04     
+Convexity Enhanced (5.00) -6.53%          6.87       69.36     
+VaR Optimized (3.00%)     -1.28%          1.29       2.85      
+Credit Diversified (5.00) -6.00%          6.28       57.93     
+Barbell Strategy (5.00)   -4.66%          4.86       42.02     
+Bullet Strategy (5.00)    -5.24%          5.45       42.98     
+
+Scenario: Parallel_Up_200bps
+Strategy                  % Change        Duration   Convexity 
+------------------------------------------------------------
+Duration Matched (3.00)   -3.24%          1.66       4.33      
+Duration Matched (5.00)   -10.70%         5.82       49.93     
+Duration Matched (7.00)   -12.52%         6.90       69.04     
+Convexity Enhanced (5.00) -12.45%         6.87       69.36     
+VaR Optimized (3.00%)     -2.53%          1.29       2.85      
+Credit Diversified (5.00) -11.48%         6.28       57.93     
+Barbell Strategy (5.00)   -8.94%          4.86       42.02     
+Bullet Strategy (5.00)    -10.09%         5.45       42.98     
+
+KEY FINDINGS AND RECOMMENDATIONS:
+--------------------------------------------------
+1. Overall Performance Ranking:
+   1. VaR Optimized (3.00%)
+   2. Duration Matched (3.00)
+   3. Duration Matched (7.00)
+   4. Credit Diversified (5.00)
+   5. Bullet Strategy (5.00)
+   6. Barbell Strategy (5.00)
+   7. Convexity Enhanced (5.00)
+   8. Duration Matched (5.00)
+
+2. Most Resilient Strategy: VaR Optimized (3.00%)
+   Worst-case scenario: Inflation_Hike_2022 (-10.36%)
+
+3. Lowest Risk Strategy (by VaR): VaR Optimized (3.00%)
+   Historical VaR: 1.16%
+
+Recommendations:
+- The VaR Optimized (3.00%) strategy showed the best overall performance
+  across all scenarios with an average return of -1.31%.
+- For investors concerned with downside protection, the VaR Optimized (3.00%)
+  strategy offers the best resilience in stressed market scenarios.
+- Risk-averse investors should consider the VaR Optimized (3.00%)
+  strategy for its lower Value-at-Risk profile.
+
+- Duration matching alone is insufficient during periods of high volatility.
+  Enhancing convexity provides additional protection against large yield changes.
+
+- VaR-optimized portfolios can effectively balance risk and return,
+  particularly in moderately stressed market conditions.
+
+- Credit diversification demonstrates its value during credit stress scenarios,
+  though it may underperform in purely rate-driven scenarios.
+
+- The barbell strategy's performance illustrates its usefulness for investors
+  expecting significant yield curve shape changes.
+
+General Framework Recommendations:
+- Combine multiple risk metrics rather than relying on a single measure
+- Regularly stress test portfolios using both historical and hypothetical scenarios
+- Adjust risk management approach based on the current economic environment and outlook
+- For most investors, a balanced approach using duration management,
+  convexity enhancement, and proper diversification will provide the best results
