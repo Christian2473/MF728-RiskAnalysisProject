@@ -10,7 +10,6 @@ from scipy.optimize import minimize, brentq, fsolve
 from pathlib import Path
 import os
 from sklearn.linear_model import LinearRegression
-from dataclasses import dataclass
 
 ###############################################################################
 #                          YIELD CURVE CONSTRUCTION                           #
@@ -4801,17 +4800,24 @@ class RiskManagementModule:
 
         return summary_text
     
-@dataclass
-class CIR:
+class CIR_base:
     """
     CIR model class that takes in a series of yields.
     """
 
-    rates : pd.Series
+    def __init__(self, rates: pd.Series):
+        """
+        Initialize the CIR model with a series of yields.
+        
+        Parameters
+        ----------
+        rates : pd.DataFrame
+            A DataFrame containing the yield data.
+        """
+        self.rates = rates
 
-    def __post_init__(self):
-        """setting up the parameters for the CIR model"""
-
+    def calibrate(self):
+        """Calibrate CIR model parameters using OLS regression."""
         self.rates, rates = self.rates/100, self.rates/100
 
         rt = rates[1:]
@@ -4864,7 +4870,8 @@ class CIR:
         np.ndarray
             Simulated interest rates. Each row corresponds to a simulation, and each column corresponds to a time step.
         """
-        # Simulate the CIR process
+        # Calibrate the CIR process
+        self.calibrate()
 
         if starting_rate is None:
             starting_rate = self.rates.iloc[0]
@@ -4891,6 +4898,48 @@ class CIR:
                 rates[i, t] = rates[i,t-1] + kappa * (theta - rates[i,t-1]) * delta_t + sigma * np.sqrt(delta_t) * np.sqrt(rates[i,t-1]) * Z[t-1]
 
         return rates
+    
+class CIR(CIR_base):
+    """
+    CIR model class that takes in a series of yields.
+    """
+
+    def __init__(self, rates: pd.DataFrame):
+        """
+        Initialize the CIR model with a series of yields.
+        
+        Parameters
+        ----------
+        rates : pd.DataFrame
+            A DataFrame containing the yield data.
+        """
+
+        self.rates = rates/100
+
+        
+        self.dataframe = rates.apply(lambda x : CIR_base(x), axis=0)
+
+    def calibrate(self):
+        self.dataframe.apply(lambda x : x.calibrate())
+    
+    def simulate(self, N:int = 1, starting_rate:float = None) ->np.ndarray:
+        """
+        Simulate the CIR process using calibrated parameters.
+        
+        Parameters
+        ----------
+        N : int
+            Number of simulations to run.
+        starting_rate : float
+            Starting interest rate for the simulation. If None, uses the first rate in the series.
+
+        Returns
+        -------
+        np.ndarray
+            Simulated interest rates. Each row corresponds to a simulation, and each column corresponds to a time step.
+        """
+        # Calibrate the CIR process
+
 
 def main():
     """
