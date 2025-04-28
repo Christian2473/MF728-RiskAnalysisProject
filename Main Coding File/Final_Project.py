@@ -8,6 +8,9 @@ from scipy import interpolate
 from scipy.stats import norm, t, kurtosis
 from scipy.optimize import minimize, brentq, fsolve
 from pathlib import Path
+import os
+from sklearn.linear_model import LinearRegression
+from dataclasses import dataclass
 
 ###############################################################################
 #                          YIELD CURVE CONSTRUCTION                           #
@@ -4797,6 +4800,97 @@ class RiskManagementModule:
                 f.write(summary_text)
 
         return summary_text
+    
+@dataclass
+class CIR:
+    """
+    CIR model class that takes in a series of yields.
+    """
+
+    rates : pd.Series
+
+    def __post_init__(self):
+        """setting up the parameters for the CIR model"""
+
+        self.rates, rates = self.rates/100, self.rates/100
+
+        rt = rates[1:]
+
+        #setting up the parameters for OLS regression
+        delta_rt = rates.diff().dropna()
+        sqrt_rt = np.sqrt(rt)
+        delta_t = pd.Series(rates.index.to_series().diff().dropna().dt.days.values, index=delta_rt.index) / 360 * 12  # Ensure matching lengths
+        T = (rates.index[-1] - rates.index[0]).days / 360 * 12  # Total time period in years
+
+        #setting up the OLS regression
+        y = delta_rt/sqrt_rt
+        Y = np.array(y).reshape(-1, 1)
+
+        x1 = delta_t/sqrt_rt
+        x2 = sqrt_rt*delta_t
+
+        X = np.array([x1, x2]).T
+
+        # Fit the linear regression model
+        model = LinearRegression(fit_intercept=False)
+        model.fit(X, Y)
+
+        # Extract the coefficients
+        a, b = model.coef_[0]
+
+        # Calculate the parameters
+        kappa = -b
+        theta = a/kappa
+        sigma = np.sqrt(np.square(delta_rt/sqrt_rt).sum() / T)
+        
+        self.model = model
+        self.theta = theta
+        self.kappa = kappa
+        self.sigma = sigma
+
+    def simulate(self, N:int = 1, starting_rate:float = None) ->np.ndarray:
+        """
+        Simulate the CIR process using calibrated parameters.
+        
+        Parameters
+        ----------
+        N : int
+            Number of simulations to run.
+        starting_rate : float
+            Starting interest rate for the simulation. If None, uses the first rate in the series.
+
+        Returns
+        -------
+        np.ndarray
+            Simulated interest rates. Each row corresponds to a simulation, and each column corresponds to a time step.
+        """
+        # Simulate the CIR process
+
+        if starting_rate is None:
+            starting_rate = self.rates.iloc[0]
+
+        # Getting CIR parameters
+        theta = self.theta
+        kappa = self.kappa
+        sigma = self.sigma
+        delta_t = 1/360
+
+        rates = np.zeros((N, len(self.rates)))
+
+        for i in range(N):
+            # Simulate the process
+            # Use the CIR model parameters to generate future rates
+
+
+            Z = np.random.normal(0, 1, size=(len(self.rates)))
+
+            rates[i, :] = np.zeros(len(self.rates))
+            rates[i, 0] = starting_rate
+
+            for t in range(1, len(self.rates)):
+                rates[i, t] = rates[i,t-1] + kappa * (theta - rates[i,t-1]) * delta_t + sigma * np.sqrt(delta_t) * np.sqrt(rates[i,t-1]) * Z[t-1]
+
+        return rates
 
 def main():
     """
