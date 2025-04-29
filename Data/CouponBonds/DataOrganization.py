@@ -51,10 +51,8 @@ def organize_data(path: str|Path, folder_path: None) -> None:
                 with open_folder(rating):
                     file_path = os.path.join(os.getcwd(), sheet_name + ".csv")
 
-                    # Checking if the file already exists
-                    if not os.path.exists(file_path):
-                        sheet_df = excel_file.parse(sheet_name)
-                        sheet_df.to_csv(f"{sheet_name}.csv", index=False)
+                    sheet_df = excel_file.parse(sheet_name)
+                    sheet_df.to_csv(f"{sheet_name}.csv", index=False)
 
 def clean_folders(num_files: int = 4) -> None:
     """Cleaning the folders by removing the files that are not needed
@@ -116,6 +114,7 @@ def combine_files() -> None:
                 df_price_yield = df_price_yield.reset_index(drop=True)
                 df_price_yield.drop(0, inplace=True)  # Drop the first row which is now redundant
                 df_price_yield.set_index('Date', inplace=True)  # Set the first column as index
+                df_price_yield = df_price_yield.sort_index(ascending=True)  # Sort the index in ascending order
 
                 #setting up the two dataframes
                 yield_df_temp = pd.concat([df_info, df_price_yield["Mid YTM"]], ignore_index=False)
