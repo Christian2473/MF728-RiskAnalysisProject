@@ -32,6 +32,8 @@ def organize_data(path: str|Path, folder_path: None) -> None:
     excel_file: pd.ExcelFile = pd.ExcelFile(path)
     sheets: List[str] = excel_file.sheet_names
 
+    os.makedirs("CouponBondData", exist_ok=True)
+
     if not folder_path:
         os.makedirs(folder_path, exist_ok=True) 
 
@@ -155,7 +157,7 @@ if __name__ == "__main__":
     os.chdir(os.path.dirname(__file__))
 
     # Getting the rating of the bonds from an excel sheet path
-    # organize_data("Temp_Bloomberg_Data.xlsx", "CouponBondData")
+    organize_data("Temp_Bloomberg_Data.xlsx", "CouponBondData")
         
     # Cleaning the folders by removing the files that are not needed
     with open_folder("CouponBondData"):
