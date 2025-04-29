@@ -34,7 +34,7 @@ Strategy: Credit Diversified (5.00) (credit_diversified_5.00)
   Type: credit_diversified
   Target Duration: 5.00
   Achieved Duration: 6.46
-  Credit Allocations: A: 16.7%, AA-: 16.7%, AA+: 16.7%, A+: 16.7%, BBB+: 16.7%, BBB: 16.7%
+  Credit Allocations: A: 16.7%, AA+: 16.7%, BBB+: 16.7%, AA-: 16.7%, A+: 16.7%, BBB: 16.7%
 
 Strategy: Barbell Strategy (5.00) (barbell_5.00)
   Type: barbell
@@ -56,21 +56,21 @@ Duration Matched (5.00)   -3.98%          Inflation_Hike_2022 (-19.08%) Bull_Fla
 Duration Matched (7.00)   -2.51%          Inflation_Hike_2022 (-18.07%) Bull_Flattener_50bps (9.52%)
 Convexity Enhanced (5.00) -3.40%          Inflation_Hike_2022 (-19.78%) Bull_Flattener_50bps (9.91%)
 VaR Optimized (3.00%)     -0.81%          Inflation_Hike_2022 (-5.35%) COVID_Crisis_2020 (0.76%)
-Credit Diversified (5.00) -2.86%          Inflation_Hike_2022 (-17.91%) Bull_Flattener_50bps (7.65%)
+Credit Diversified (5.00) -2.85%          Inflation_Hike_2022 (-17.91%) Bull_Flattener_50bps (7.71%)
 Barbell Strategy (5.00)   -3.76%          Inflation_Hike_2022 (-17.26%) Bull_Flattener_50bps (5.03%)
 Bullet Strategy (5.00)    -3.38%          Inflation_Hike_2022 (-17.18%) Bull_Flattener_50bps (3.91%)
 
 Average Value at Risk (% of Portfolio):
 Strategy                  Historical VaR  Normal VaR      t-dist VaR     
 ----------------------------------------------------------------------
-Duration Matched (3.00)   1.22%           1.17%           1.21%          
-Duration Matched (5.00)   4.54%           4.52%           4.67%          
-Duration Matched (7.00)   5.06%           5.17%           5.44%          
-Convexity Enhanced (5.00) 5.10%           4.75%           4.92%          
-VaR Optimized (3.00%)     0.89%           0.91%           0.95%          
-Credit Diversified (5.00) 4.52%           4.62%           4.76%          
-Barbell Strategy (5.00)   3.87%           3.76%           3.89%          
-Bullet Strategy (5.00)    4.02%           4.13%           4.27%          
+Duration Matched (3.00)   1.33%           1.24%           1.29%          
+Duration Matched (5.00)   4.55%           4.38%           4.52%          
+Duration Matched (7.00)   4.83%           4.88%           5.04%          
+Convexity Enhanced (5.00) 5.51%           4.89%           5.06%          
+VaR Optimized (3.00%)     0.85%           0.81%           0.84%          
+Credit Diversified (5.00) 4.50%           4.39%           4.53%          
+Barbell Strategy (5.00)   4.13%           3.89%           4.03%          
+Bullet Strategy (5.00)    4.01%           3.94%           4.07%          
 
 SCENARIO-SPECIFIC PERFORMANCE:
 --------------------------------------------------
@@ -82,7 +82,7 @@ Duration Matched (5.00)   -0.55%          5.82       49.93
 Duration Matched (7.00)   -0.52%          6.90       69.04     
 Convexity Enhanced (5.00) -0.52%          6.87       69.36     
 VaR Optimized (3.00%)     -0.43%          1.29       2.85      
-Credit Diversified (5.00) -0.52%          6.44       60.87     
+Credit Diversified (5.00) -0.52%          6.44       61.01     
 Barbell Strategy (5.00)   -0.54%          4.86       42.02     
 Bullet Strategy (5.00)    -0.57%          5.45       42.98     
 
@@ -94,7 +94,7 @@ Duration Matched (5.00)   -4.66%          5.82       49.93
 Duration Matched (7.00)   -7.95%          6.90       69.04     
 Convexity Enhanced (5.00) -8.17%          6.87       69.36     
 VaR Optimized (3.00%)     -0.10%          1.29       2.85      
-Credit Diversified (5.00) -6.52%          6.44       60.87     
+Credit Diversified (5.00) -6.56%          6.44       61.01     
 Barbell Strategy (5.00)   -4.34%          4.86       42.02     
 Bullet Strategy (5.00)    -3.46%          5.45       42.98     
 
@@ -106,7 +106,7 @@ Duration Matched (5.00)   5.35%           5.82       49.93
 Duration Matched (7.00)   9.52%           6.90       69.04     
 Convexity Enhanced (5.00) 9.91%           6.87       69.36     
 VaR Optimized (3.00%)     0.10%           1.29       2.85      
-Credit Diversified (5.00) 7.65%           6.44       60.87     
+Credit Diversified (5.00) 7.71%           6.44       61.01     
 Barbell Strategy (5.00)   5.03%           4.86       42.02     
 Bullet Strategy (5.00)    3.91%           5.45       42.98     
 
@@ -118,7 +118,7 @@ Duration Matched (5.00)   0.55%           5.82       49.93
 Duration Matched (7.00)   0.52%           6.90       69.04     
 Convexity Enhanced (5.00) 0.53%           6.87       69.36     
 VaR Optimized (3.00%)     0.43%           1.29       2.85      
-Credit Diversified (5.00) 0.53%           6.44       60.87     
+Credit Diversified (5.00) 0.53%           6.44       61.01     
 Barbell Strategy (5.00)   0.55%           4.86       42.02     
 Bullet Strategy (5.00)    0.57%           5.45       42.98     
 
@@ -130,7 +130,7 @@ Duration Matched (5.00)   -10.54%         5.82       49.93
 Duration Matched (7.00)   2.26%           6.90       69.04     
 Convexity Enhanced (5.00) -5.37%          6.87       69.36     
 VaR Optimized (3.00%)     0.76%           1.29       2.85      
-Credit Diversified (5.00) -0.91%          6.44       60.87     
+Credit Diversified (5.00) -0.91%          6.44       61.01     
 Barbell Strategy (5.00)   -12.22%         4.86       42.02     
 Bullet Strategy (5.00)    -6.16%          5.45       42.98     
 
@@ -142,7 +142,7 @@ Duration Matched (5.00)   -19.08%         5.82       49.93
 Duration Matched (7.00)   -18.07%         6.90       69.04     
 Convexity Enhanced (5.00) -19.78%         6.87       69.36     
 VaR Optimized (3.00%)     -5.35%          1.29       2.85      
-Credit Diversified (5.00) -17.91%         6.44       60.87     
+Credit Diversified (5.00) -17.91%         6.44       61.01     
 Barbell Strategy (5.00)   -17.26%         4.86       42.02     
 Bullet Strategy (5.00)    -17.18%         5.45       42.98     
 
@@ -154,7 +154,7 @@ Duration Matched (5.00)   2.44%           5.82       49.93
 Duration Matched (7.00)   4.72%           6.90       69.04     
 Convexity Enhanced (5.00) 4.91%           6.87       69.36     
 VaR Optimized (3.00%)     -0.33%          1.29       2.85      
-Credit Diversified (5.00) 3.72%           6.44       60.87     
+Credit Diversified (5.00) 3.75%           6.44       61.01     
 Barbell Strategy (5.00)   2.28%           4.86       42.02     
 Bullet Strategy (5.00)    1.63%           5.45       42.98     
 
@@ -166,7 +166,7 @@ Duration Matched (5.00)   2.97%           5.82       49.93
 Duration Matched (7.00)   3.54%           6.90       69.04     
 Convexity Enhanced (5.00) 3.52%           6.87       69.36     
 VaR Optimized (3.00%)     0.65%           1.29       2.85      
-Credit Diversified (5.00) 3.30%           6.44       60.87     
+Credit Diversified (5.00) 3.30%           6.44       61.01     
 Barbell Strategy (5.00)   2.48%           4.86       42.02     
 Bullet Strategy (5.00)    2.78%           5.45       42.98     
 
@@ -178,7 +178,7 @@ Duration Matched (5.00)   -5.58%          5.82       49.93
 Duration Matched (7.00)   -6.57%          6.90       69.04     
 Convexity Enhanced (5.00) -6.53%          6.87       69.36     
 VaR Optimized (3.00%)     -1.28%          1.29       2.85      
-Credit Diversified (5.00) -6.14%          6.44       60.87     
+Credit Diversified (5.00) -6.14%          6.44       61.01     
 Barbell Strategy (5.00)   -4.66%          4.86       42.02     
 Bullet Strategy (5.00)    -5.24%          5.45       42.98     
 
@@ -190,7 +190,7 @@ Duration Matched (5.00)   -10.70%         5.82       49.93
 Duration Matched (7.00)   -12.52%         6.90       69.04     
 Convexity Enhanced (5.00) -12.45%         6.87       69.36     
 VaR Optimized (3.00%)     -2.53%          1.29       2.85      
-Credit Diversified (5.00) -11.74%         6.44       60.87     
+Credit Diversified (5.00) -11.74%         6.44       61.01     
 Barbell Strategy (5.00)   -8.94%          4.86       42.02     
 Bullet Strategy (5.00)    -10.09%         5.45       42.98     
 
@@ -210,7 +210,7 @@ KEY FINDINGS AND RECOMMENDATIONS:
    Worst-case scenario: Inflation_Hike_2022 (-5.35%)
 
 3. Lowest Risk Strategy (by VaR): VaR Optimized (3.00%)
-   Historical VaR: 0.89%
+   Historical VaR: 0.85%
 
 Recommendations:
 - The VaR Optimized (3.00%) strategy showed the best overall performance
