@@ -89,14 +89,14 @@ Bond ID: 988498AD3 Corp
 SCENARIO IMPACTS:
 --------------------------------------------------
              Scenario                                                                                                                                                                                                                                                                                                                                          Description  Portfolio Change (%)  Portfolio Duration  Portfolio Convexity  Historical VaR (%)  Parametric VaR - Normal (%)  Parametric VaR - t (%)
-    COVID_Crisis_2020  COVID-19 Crisis Scenario: Based on actual yield changes from 2020-02-19 to 2020-03-09. 10-year Treasury yield fell from 1.56% to 0.54% during the flight to safety.\nCorporate spread widening during crisis: A: +100bps, A-: +130bps, A+: +80bps, AA-: +60bps, AA+: +50bps, BB-: +700bps, BB+: +500bps, BBB: +250bps, BBB-: +350bps, BBB+: +180bps            -18.859781            6.655418            65.082888           10.284226                     9.343702                9.665711
-  Inflation_Hike_2022 Inflation Rate Hike Scenario: Based on actual yield changes from 2021-12-31 to 2022-11-07. 2-year Treasury yield rose from 0.73% to 4.72% during Fed tightening cycle.\nCorporate spread changes during inflation: A: +30bps, A-: +40bps, A+: +20bps, AA-: +15bps, AA+: +10bps, BB-: +200bps, BB+: +150bps, BBB: +80bps, BBB-: +100bps, BBB+: +60bps            -22.875297            6.655418            65.082888            4.436473                     4.067053                4.205727
-   Parallel_Up_100bps                                                                                                                                                                                                                                                                                             Parallel shift of 100 bps across the entire yield curve.             -6.342057            6.655418            65.082888            4.436473                     4.067053                4.205727
-   Parallel_Up_200bps                                                                                                                                                                                                                                                                                             Parallel shift of 200 bps across the entire yield curve.            -12.102688            6.655418            65.082888            4.436473                     4.067053                4.205727
- Parallel_Down_100bps                                                                                                                                                                                                                                                                                            Parallel shift of -100 bps across the entire yield curve.              6.993678            6.655418            65.082888            4.436473                     4.067053                4.205727
-Bull_Steepener_100bps                                                                                                                                                                                                                                                             Steepening scenario with graduated increases up to 100 bps at the long end of the curve.             -2.179960            6.655418            65.082888            4.436473                     4.067053                4.205727
-Bear_Flattener_100bps                                                                                                                                                                                                                                                            Flattening scenario with graduated increases up to 100 bps at the short end of the curve.             -4.300599            6.655418            65.082888            4.436473                     4.067053                4.205727
-     Inversion_100bps                                                                                                                                                                                                                                       Yield Curve Inversion: Short-end rates rise by 100 bps, while long-end rates fall, creating an inverted curve.              8.982774            6.655418            65.082888            4.436473                     4.067053                4.205727
+    COVID_Crisis_2020  COVID-19 Crisis Scenario: Based on actual yield changes from 2020-02-19 to 2020-03-09. 10-year Treasury yield fell from 1.56% to 0.54% during the flight to safety.\nCorporate spread widening during crisis: A: +100bps, A-: +130bps, A+: +80bps, AA-: +60bps, AA+: +50bps, BB-: +700bps, BB+: +500bps, BBB: +250bps, BBB-: +350bps, BBB+: +180bps            -18.859781            6.655418            65.082888           10.657663                     9.101513                9.437138
+  Inflation_Hike_2022 Inflation Rate Hike Scenario: Based on actual yield changes from 2021-12-31 to 2022-11-07. 2-year Treasury yield rose from 0.73% to 4.72% during Fed tightening cycle.\nCorporate spread changes during inflation: A: +30bps, A-: +40bps, A+: +20bps, AA-: +15bps, AA+: +10bps, BB-: +200bps, BB+: +150bps, BBB: +80bps, BBB-: +100bps, BBB+: +60bps            -22.875297            6.655418            65.082888            4.466319                     3.978793                4.122150
+   Parallel_Up_100bps                                                                                                                                                                                                                                                                                             Parallel shift of 100 bps across the entire yield curve.             -6.342057            6.655418            65.082888            4.466319                     3.978793                4.122150
+   Parallel_Up_200bps                                                                                                                                                                                                                                                                                             Parallel shift of 200 bps across the entire yield curve.            -12.102688            6.655418            65.082888            4.466319                     3.978793                4.122150
+ Parallel_Down_100bps                                                                                                                                                                                                                                                                                            Parallel shift of -100 bps across the entire yield curve.              6.993678            6.655418            65.082888            4.466319                     3.978793                4.122150
+Bull_Steepener_100bps                                                                                                                                                                                                                                                             Steepening scenario with graduated increases up to 100 bps at the long end of the curve.             -2.179960            6.655418            65.082888            4.466319                     3.978793                4.122150
+Bear_Flattener_100bps                                                                                                                                                                                                                                                            Flattening scenario with graduated increases up to 100 bps at the short end of the curve.             -4.300599            6.655418            65.082888            4.466319                     3.978793                4.122150
+     Inversion_100bps                                                                                                                                                                                                                                       Yield Curve Inversion: Short-end rates rise by 100 bps, while long-end rates fall, creating an inverted curve.              8.982774            6.655418            65.082888            4.466319                     3.978793                4.122150
 
 DETAILED SCENARIO RESULTS:
 --------------------------------------------------
@@ -107,9 +107,9 @@ Portfolio Base Value: $64.18
 Portfolio Value Under Scenario: $52.08
 Change: $-12.11 (-18.86%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $6.60 (10.28%)
-  Parametric VaR (Normal): $6.00 (9.34%)
-  Parametric VaR (t-dist): $6.20 (9.67%)
+  Historical VaR: $6.84 (10.66%)
+  Parametric VaR (Normal): $5.84 (9.10%)
+  Parametric VaR (t-dist): $6.06 (9.44%)
 
   Individual Bond Results:
   Bond ID: 136385AL5 Corp
@@ -168,9 +168,9 @@ Portfolio Base Value: $64.18
 Portfolio Value Under Scenario: $49.50
 Change: $-14.68 (-22.88%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $2.85 (4.44%)
-  Parametric VaR (Normal): $2.61 (4.07%)
-  Parametric VaR (t-dist): $2.70 (4.21%)
+  Historical VaR: $2.87 (4.47%)
+  Parametric VaR (Normal): $2.55 (3.98%)
+  Parametric VaR (t-dist): $2.65 (4.12%)
 
   Individual Bond Results:
   Bond ID: 136385AL5 Corp
@@ -228,9 +228,9 @@ Portfolio Base Value: $64.18
 Portfolio Value Under Scenario: $60.11
 Change: $-4.07 (-6.34%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $2.85 (4.44%)
-  Parametric VaR (Normal): $2.61 (4.07%)
-  Parametric VaR (t-dist): $2.70 (4.21%)
+  Historical VaR: $2.87 (4.47%)
+  Parametric VaR (Normal): $2.55 (3.98%)
+  Parametric VaR (t-dist): $2.65 (4.12%)
 
   Individual Bond Results:
   Bond ID: 136385AL5 Corp
@@ -288,9 +288,9 @@ Portfolio Base Value: $64.18
 Portfolio Value Under Scenario: $56.42
 Change: $-7.77 (-12.10%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $2.85 (4.44%)
-  Parametric VaR (Normal): $2.61 (4.07%)
-  Parametric VaR (t-dist): $2.70 (4.21%)
+  Historical VaR: $2.87 (4.47%)
+  Parametric VaR (Normal): $2.55 (3.98%)
+  Parametric VaR (t-dist): $2.65 (4.12%)
 
   Individual Bond Results:
   Bond ID: 136385AL5 Corp
@@ -348,9 +348,9 @@ Portfolio Base Value: $64.18
 Portfolio Value Under Scenario: $68.67
 Change: $4.49 (6.99%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $2.85 (4.44%)
-  Parametric VaR (Normal): $2.61 (4.07%)
-  Parametric VaR (t-dist): $2.70 (4.21%)
+  Historical VaR: $2.87 (4.47%)
+  Parametric VaR (Normal): $2.55 (3.98%)
+  Parametric VaR (t-dist): $2.65 (4.12%)
 
   Individual Bond Results:
   Bond ID: 136385AL5 Corp
@@ -408,9 +408,9 @@ Portfolio Base Value: $64.18
 Portfolio Value Under Scenario: $62.79
 Change: $-1.40 (-2.18%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $2.85 (4.44%)
-  Parametric VaR (Normal): $2.61 (4.07%)
-  Parametric VaR (t-dist): $2.70 (4.21%)
+  Historical VaR: $2.87 (4.47%)
+  Parametric VaR (Normal): $2.55 (3.98%)
+  Parametric VaR (t-dist): $2.65 (4.12%)
 
   Individual Bond Results:
   Bond ID: 136385AL5 Corp
@@ -468,9 +468,9 @@ Portfolio Base Value: $64.18
 Portfolio Value Under Scenario: $61.42
 Change: $-2.76 (-4.30%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $2.85 (4.44%)
-  Parametric VaR (Normal): $2.61 (4.07%)
-  Parametric VaR (t-dist): $2.70 (4.21%)
+  Historical VaR: $2.87 (4.47%)
+  Parametric VaR (Normal): $2.55 (3.98%)
+  Parametric VaR (t-dist): $2.65 (4.12%)
 
   Individual Bond Results:
   Bond ID: 136385AL5 Corp
@@ -528,9 +528,9 @@ Portfolio Base Value: $64.18
 Portfolio Value Under Scenario: $69.95
 Change: $5.77 (8.98%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $2.85 (4.44%)
-  Parametric VaR (Normal): $2.61 (4.07%)
-  Parametric VaR (t-dist): $2.70 (4.21%)
+  Historical VaR: $2.87 (4.47%)
+  Parametric VaR (Normal): $2.55 (3.98%)
+  Parametric VaR (t-dist): $2.65 (4.12%)
 
   Individual Bond Results:
   Bond ID: 136385AL5 Corp

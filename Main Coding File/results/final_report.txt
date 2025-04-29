@@ -18,10 +18,10 @@ conservative    86.147003  2.309136      2.047833   8.972695
 3. Value at Risk Summary (10-day, 95% confidence)
 --------------------------------------------------
    Portfolio  Historical VaR (%)  Normal VaR (%)  t-dist VaR (%)
-conservative            8.891525       12.404023       15.687850
-    balanced            8.951264       12.440304       15.731564
-  aggressive            8.867492       12.402209       15.685289
-     barbell            8.982399       12.565934       15.884194
+conservative            8.898351       12.416778       15.699047
+    balanced            8.898351       12.416778       15.699047
+  aggressive            8.898351       12.416778       15.699047
+     barbell            8.898351       12.416778       15.699047
 
 4. Scenario Analysis Highlights
 --------------------------------------------------
