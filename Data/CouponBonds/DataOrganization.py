@@ -106,8 +106,8 @@ def combine_files() -> None:
                 df_info.index.name = None
                 df_info.name = df_info["Company"]
                 
-                df_info["Maturity Date"] = dt.datetime.strptime(df_info["Maturity Date"].split(" ")[0], "%Y-%m-%d")  # Remove spaces from the "Issue Date" column
-                df_info["Issue Date"] = dt.datetime.strptime(df_info["Issue Date"].split(" ")[0], "%Y-%m-%d")  # Remove spaces from the "Issue Date" column
+                df_info["Maturity Date"] = dt.datetime.strptime(df_info["Maturity Date"].split(" ")[0], "%m/%d/%Y")  # Remove spaces from the "Issue Date" column
+                df_info["Issue Date"] = dt.datetime.strptime(df_info["Issue Date"].split(" ")[0], "%m/%d/%Y")  # Remove spaces from the "Issue Date" column
                 df_info["Tenor (days)"] = (df_info["Maturity Date"] - df_info["Issue Date"]).days
 
                 # Creating the price and yield dataframe
@@ -143,6 +143,8 @@ def combine_files() -> None:
             price_df.drop("CUSIP", axis=0, inplace=True)
             yield_df.drop("CUSIP", axis=0, inplace=True)
 
+            price_df = price_df.dropna(axis=1, how='all')  # Drop columns that are completely empty
+            yield_df = yield_df.dropna(axis=1, how='all')  # Drop columns that are completely empty
 
 
             # Saving the dataframes
