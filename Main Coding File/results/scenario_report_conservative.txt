@@ -13,7 +13,6 @@ Parallel_Down_100bps: Parallel shift of -100 bps across the entire yield curve.
 Bull_Steepener_100bps: Steepening scenario with graduated increases up to 100 bps at the long end of the curve.
 Bear_Flattener_100bps: Flattening scenario with graduated increases up to 100 bps at the short end of the curve.
 Inversion_100bps: Yield Curve Inversion: Short-end rates rise by 100 bps, while long-end rates fall, creating an inverted curve.
-CIR_Simulation_100: CIR Model Scenario based on 79 successful simulations. Projected rates reflect the average outcome 180 days into the future.
 
 PORTFOLIO CHARACTERISTICS:
 --------------------------------------------------
@@ -50,15 +49,25 @@ Bond ID: 771367BZ1 Corp
 SCENARIO IMPACTS:
 --------------------------------------------------
              Scenario                                                                                                                                                                                                                                                                                                                                          Description  Portfolio Change (%)  Portfolio Duration  Portfolio Convexity  Historical VaR (%)  Parametric VaR - Normal (%)  Parametric VaR - t (%)
-    COVID_Crisis_2020  COVID-19 Crisis Scenario: Based on actual yield changes from 2020-02-19 to 2020-03-09. 10-year Treasury yield fell from 1.56% to 0.54% during the flight to safety.\nCorporate spread widening during crisis: A: +100bps, A-: +130bps, A+: +80bps, AA-: +60bps, AA+: +50bps, BB-: +700bps, BB+: +500bps, BBB: +250bps, BBB-: +350bps, BBB+: +180bps              0.551097            2.047833             8.972695            2.487773                     2.427081                2.506921
-  Inflation_Hike_2022 Inflation Rate Hike Scenario: Based on actual yield changes from 2021-12-31 to 2022-11-07. 2-year Treasury yield rose from 0.73% to 4.72% during Fed tightening cycle.\nCorporate spread changes during inflation: A: +30bps, A-: +40bps, A+: +20bps, AA-: +15bps, AA+: +10bps, BB-: +200bps, BB+: +150bps, BBB: +80bps, BBB-: +100bps, BBB+: +60bps             -7.265505            2.047833             8.972695            1.259092                     1.229319                1.269742
-   Parallel_Up_100bps                                                                                                                                                                                                                                                                                             Parallel shift of 100 bps across the entire yield curve.             -2.003925            2.047833             8.972695            1.259092                     1.229319                1.269742
-   Parallel_Up_200bps                                                                                                                                                                                                                                                                                             Parallel shift of 200 bps across the entire yield curve.             -3.923711            2.047833             8.972695            1.259092                     1.229319                1.269742
- Parallel_Down_100bps                                                                                                                                                                                                                                                                                            Parallel shift of -100 bps across the entire yield curve.              2.093692            2.047833             8.972695            1.259092                     1.229319                1.269742
-Bull_Steepener_100bps                                                                                                                                                                                                                                                             Steepening scenario with graduated increases up to 100 bps at the long end of the curve.             -0.267286            2.047833             8.972695            1.259092                     1.229319                1.269742
-Bear_Flattener_100bps                                                                                                                                                                                                                                                            Flattening scenario with graduated increases up to 100 bps at the short end of the curve.             -1.748772            2.047833             8.972695            1.259092                     1.229319                1.269742
-     Inversion_100bps                                                                                                                                                                                                                                       Yield Curve Inversion: Short-end rates rise by 100 bps, while long-end rates fall, creating an inverted curve.             -0.386653            2.047833             8.972695            1.259092                     1.229319                1.269742
-   CIR_Simulation_100                                                                                                                                                                                                                         CIR Model Scenario based on 79 successful simulations. Projected rates reflect the average outcome 180 days into the future.             -0.062769            2.047833             8.972695            1.259092                     1.229319                1.269742
+<<<<<<< HEAD
+    COVID_Crisis_2020  COVID-19 Crisis Scenario: Based on actual yield changes from 2020-02-19 to 2020-03-09. 10-year Treasury yield fell from 1.56% to 0.54% during the flight to safety.\nCorporate spread widening during crisis: A: +100bps, A-: +130bps, A+: +80bps, AA-: +60bps, AA+: +50bps, BB-: +700bps, BB+: +500bps, BBB: +250bps, BBB-: +350bps, BBB+: +180bps              0.551097            2.047833             8.972695            2.457809                     2.394714                2.473519
+  Inflation_Hike_2022 Inflation Rate Hike Scenario: Based on actual yield changes from 2021-12-31 to 2022-11-07. 2-year Treasury yield rose from 0.73% to 4.72% during Fed tightening cycle.\nCorporate spread changes during inflation: A: +30bps, A-: +40bps, A+: +20bps, AA-: +15bps, AA+: +10bps, BB-: +200bps, BB+: +150bps, BBB: +80bps, BBB-: +100bps, BBB+: +60bps             -7.265505            2.047833             8.972695            1.242573                     1.212814                1.252707
+   Parallel_Up_100bps                                                                                                                                                                                                                                                                                             Parallel shift of 100 bps across the entire yield curve.             -2.003925            2.047833             8.972695            1.242573                     1.212814                1.252707
+   Parallel_Up_200bps                                                                                                                                                                                                                                                                                             Parallel shift of 200 bps across the entire yield curve.             -3.923711            2.047833             8.972695            1.242573                     1.212814                1.252707
+ Parallel_Down_100bps                                                                                                                                                                                                                                                                                            Parallel shift of -100 bps across the entire yield curve.              2.093692            2.047833             8.972695            1.242573                     1.212814                1.252707
+Bull_Steepener_100bps                                                                                                                                                                                                                                                             Steepening scenario with graduated increases up to 100 bps at the long end of the curve.             -0.267286            2.047833             8.972695            1.242573                     1.212814                1.252707
+Bear_Flattener_100bps                                                                                                                                                                                                                                                            Flattening scenario with graduated increases up to 100 bps at the short end of the curve.             -1.748772            2.047833             8.972695            1.242573                     1.212814                1.252707
+     Inversion_100bps                                                                                                                                                                                                                                       Yield Curve Inversion: Short-end rates rise by 100 bps, while long-end rates fall, creating an inverted curve.             -0.386653            2.047833             8.972695            1.242573                     1.212814                1.252707
+=======
+    COVID_Crisis_2020  COVID-19 Crisis Scenario: Based on actual yield changes from 2020-02-19 to 2020-03-09. 10-year Treasury yield fell from 1.56% to 0.54% during the flight to safety.\nCorporate spread widening during crisis: A: +100bps, A-: +130bps, A+: +80bps, AA-: +60bps, AA+: +50bps, BB-: +700bps, BB+: +500bps, BBB: +250bps, BBB-: +350bps, BBB+: +180bps              0.551097            2.047833             8.972695            2.460459                     2.394971                2.473682
+  Inflation_Hike_2022 Inflation Rate Hike Scenario: Based on actual yield changes from 2021-12-31 to 2022-11-07. 2-year Treasury yield rose from 0.73% to 4.72% during Fed tightening cycle.\nCorporate spread changes during inflation: A: +30bps, A-: +40bps, A+: +20bps, AA-: +15bps, AA+: +10bps, BB-: +200bps, BB+: +150bps, BBB: +80bps, BBB-: +100bps, BBB+: +60bps             -7.265505            2.047833             8.972695            1.244622                     1.212788                1.252634
+   Parallel_Up_100bps                                                                                                                                                                                                                                                                                             Parallel shift of 100 bps across the entire yield curve.             -2.003925            2.047833             8.972695            1.244622                     1.212788                1.252634
+   Parallel_Up_200bps                                                                                                                                                                                                                                                                                             Parallel shift of 200 bps across the entire yield curve.             -3.923711            2.047833             8.972695            1.244622                     1.212788                1.252634
+ Parallel_Down_100bps                                                                                                                                                                                                                                                                                            Parallel shift of -100 bps across the entire yield curve.              2.093692            2.047833             8.972695            1.244622                     1.212788                1.252634
+Bull_Steepener_100bps                                                                                                                                                                                                                                                             Steepening scenario with graduated increases up to 100 bps at the long end of the curve.             -0.267286            2.047833             8.972695            1.244622                     1.212788                1.252634
+Bear_Flattener_100bps                                                                                                                                                                                                                                                            Flattening scenario with graduated increases up to 100 bps at the short end of the curve.             -1.748772            2.047833             8.972695            1.244622                     1.212788                1.252634
+     Inversion_100bps                                                                                                                                                                                                                                       Yield Curve Inversion: Short-end rates rise by 100 bps, while long-end rates fall, creating an inverted curve.             -0.386653            2.047833             8.972695            1.244622                     1.212788                1.252634
+>>>>>>> 50161b58f437e2ed47cd27d397c52ee251a1ddd6
 
 DETAILED SCENARIO RESULTS:
 --------------------------------------------------
@@ -69,9 +78,9 @@ Portfolio Base Value: $86.15
 Portfolio Value Under Scenario: $86.62
 Change: $0.47 (0.55%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $2.14 (2.49%)
-  Parametric VaR (Normal): $2.09 (2.43%)
-  Parametric VaR (t-dist): $2.16 (2.51%)
+  Historical VaR: $2.12 (2.46%)
+  Parametric VaR (Normal): $2.06 (2.39%)
+  Parametric VaR (t-dist): $2.13 (2.47%)
 
   Individual Bond Results:
   Bond ID: 31331XME9 Corp
@@ -100,9 +109,9 @@ Portfolio Base Value: $86.15
 Portfolio Value Under Scenario: $79.89
 Change: $-6.26 (-7.27%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $1.08 (1.26%)
-  Parametric VaR (Normal): $1.06 (1.23%)
-  Parametric VaR (t-dist): $1.09 (1.27%)
+  Historical VaR: $1.07 (1.24%)
+  Parametric VaR (Normal): $1.04 (1.21%)
+  Parametric VaR (t-dist): $1.08 (1.25%)
 
   Individual Bond Results:
   Bond ID: 31331XME9 Corp
@@ -130,9 +139,9 @@ Portfolio Base Value: $86.15
 Portfolio Value Under Scenario: $84.42
 Change: $-1.73 (-2.00%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $1.08 (1.26%)
-  Parametric VaR (Normal): $1.06 (1.23%)
-  Parametric VaR (t-dist): $1.09 (1.27%)
+  Historical VaR: $1.07 (1.24%)
+  Parametric VaR (Normal): $1.04 (1.21%)
+  Parametric VaR (t-dist): $1.08 (1.25%)
 
   Individual Bond Results:
   Bond ID: 31331XME9 Corp
@@ -160,9 +169,9 @@ Portfolio Base Value: $86.15
 Portfolio Value Under Scenario: $82.77
 Change: $-3.38 (-3.92%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $1.08 (1.26%)
-  Parametric VaR (Normal): $1.06 (1.23%)
-  Parametric VaR (t-dist): $1.09 (1.27%)
+  Historical VaR: $1.07 (1.24%)
+  Parametric VaR (Normal): $1.04 (1.21%)
+  Parametric VaR (t-dist): $1.08 (1.25%)
 
   Individual Bond Results:
   Bond ID: 31331XME9 Corp
@@ -190,9 +199,9 @@ Portfolio Base Value: $86.15
 Portfolio Value Under Scenario: $87.95
 Change: $1.80 (2.09%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $1.08 (1.26%)
-  Parametric VaR (Normal): $1.06 (1.23%)
-  Parametric VaR (t-dist): $1.09 (1.27%)
+  Historical VaR: $1.07 (1.24%)
+  Parametric VaR (Normal): $1.04 (1.21%)
+  Parametric VaR (t-dist): $1.08 (1.25%)
 
   Individual Bond Results:
   Bond ID: 31331XME9 Corp
@@ -220,9 +229,9 @@ Portfolio Base Value: $86.15
 Portfolio Value Under Scenario: $85.92
 Change: $-0.23 (-0.27%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $1.08 (1.26%)
-  Parametric VaR (Normal): $1.06 (1.23%)
-  Parametric VaR (t-dist): $1.09 (1.27%)
+  Historical VaR: $1.07 (1.24%)
+  Parametric VaR (Normal): $1.04 (1.21%)
+  Parametric VaR (t-dist): $1.08 (1.25%)
 
   Individual Bond Results:
   Bond ID: 31331XME9 Corp
@@ -250,9 +259,9 @@ Portfolio Base Value: $86.15
 Portfolio Value Under Scenario: $84.64
 Change: $-1.51 (-1.75%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $1.08 (1.26%)
-  Parametric VaR (Normal): $1.06 (1.23%)
-  Parametric VaR (t-dist): $1.09 (1.27%)
+  Historical VaR: $1.07 (1.24%)
+  Parametric VaR (Normal): $1.04 (1.21%)
+  Parametric VaR (t-dist): $1.08 (1.25%)
 
   Individual Bond Results:
   Bond ID: 31331XME9 Corp
@@ -280,9 +289,9 @@ Portfolio Base Value: $86.15
 Portfolio Value Under Scenario: $85.81
 Change: $-0.33 (-0.39%)
 Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $1.08 (1.26%)
-  Parametric VaR (Normal): $1.06 (1.23%)
-  Parametric VaR (t-dist): $1.09 (1.27%)
+  Historical VaR: $1.07 (1.24%)
+  Parametric VaR (Normal): $1.04 (1.21%)
+  Parametric VaR (t-dist): $1.08 (1.25%)
 
   Individual Bond Results:
   Bond ID: 31331XME9 Corp
@@ -302,35 +311,5 @@ Value at Risk (95.0% confidence, 10-day holding period):
     Scenario YTM: 12.63%
     Yield Shift: -12.60 bps
     Price Change: $0.45 (0.61%)
-
---------------------------------------------------
-Scenario: CIR_Simulation_100
-Description: CIR Model Scenario based on 79 successful simulations. Projected rates reflect the average outcome 180 days into the future.
-Portfolio Base Value: $86.15
-Portfolio Value Under Scenario: $86.09
-Change: $-0.05 (-0.06%)
-Value at Risk (95.0% confidence, 10-day holding period):
-  Historical VaR: $1.08 (1.26%)
-  Parametric VaR (Normal): $1.06 (1.23%)
-  Parametric VaR (t-dist): $1.09 (1.27%)
-
-  Individual Bond Results:
-  Bond ID: 31331XME9 Corp
-    Base YTM: 12.76%
-    Scenario YTM: 12.76%
-    Yield Shift: 0.13 bps
-    Price Change: $-0.00 (-0.00%)
-
-  Bond ID: 31331XME9 Corp_1
-    Base YTM: 12.76%
-    Scenario YTM: 12.76%
-    Yield Shift: 0.13 bps
-    Price Change: $-0.00 (-0.00%)
-
-  Bond ID: 771367BZ1 Corp
-    Base YTM: 12.76%
-    Scenario YTM: 12.82%
-    Yield Shift: 6.00 bps
-    Price Change: $-0.21 (-0.29%)
 
 --------------------------------------------------

@@ -9,43 +9,38 @@ Analysis Date: 2024-11-25
 
 2. Portfolio Risk Metrics
 --------------------------------------------------
-   Portfolio  Total Value  Duration  Mod Duration  Convexity
-conservative    86.147003  2.309136      2.047833   8.972695
-    balanced    69.938685  5.499034      4.876759  41.330200
-  aggressive    64.184225  7.504649      6.655418  65.082888
-     barbell    67.282866  6.055263      5.370046  49.137492
+ Portfolio  Total Value  Duration  Mod Duration  Convexity
+  balanced    77.550103  5.894627      5.325582  48.504312
+aggressive    87.457333  8.068222      7.437839  77.716840
+   barbell    80.861712  7.418050      6.829488  69.901386
 
 3. Value at Risk Summary (10-day, 95% confidence)
 --------------------------------------------------
-   Portfolio  Historical VaR (%)  Normal VaR (%)  t-dist VaR (%)
-conservative            8.898351       12.416778       15.699047
-    balanced            8.898351       12.416778       15.699047
-  aggressive            8.898351       12.416778       15.699047
-     barbell            8.898351       12.416778       15.699047
+ Portfolio  Historical VaR (%)  Normal VaR (%)  t-dist VaR (%)
+  balanced            4.224701        6.747511        8.615714
+aggressive            2.150512        3.865368        4.947143
+   barbell            4.669270        6.220944        7.919539
 
 4. Scenario Analysis Highlights
 --------------------------------------------------
 Scenario: COVID_Crisis_2020
-  Best Portfolio: conservative
+  Best Portfolio: barbell
   Worst Portfolio: aggressive
 Scenario: Inflation_Hike_2022
-  Best Portfolio: conservative
+  Best Portfolio: balanced
   Worst Portfolio: aggressive
 Scenario: Parallel_Up_100bps
-  Best Portfolio: conservative
+  Best Portfolio: balanced
   Worst Portfolio: aggressive
 Scenario: Bull_Steepener_100bps
-  Best Portfolio: conservative
+  Best Portfolio: balanced
   Worst Portfolio: aggressive
 Scenario: Bear_Flattener_100bps
-  Best Portfolio: conservative
+  Best Portfolio: balanced
   Worst Portfolio: aggressive
 Scenario: Inversion_100bps
   Best Portfolio: aggressive
-  Worst Portfolio: conservative
-Scenario: CIR_Simulation_100
-  Best Portfolio: conservative
-  Worst Portfolio: aggressive
+  Worst Portfolio: balanced
 
 5. Risk Management Strategy Performance
 --------------------------------------------------

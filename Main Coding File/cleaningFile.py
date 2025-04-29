@@ -63,7 +63,7 @@ def build_bond_dict_from_excel(file_path):
     return bond_dict
 
 # enter here base path to the folder
-file_path = os.getcwd() + "/Data/CouponBonds/Temp_Bloomberg_Data.xlsx" 
+file_path = os.getcwd() + "Data\CouponBonds\Temp_Bloomberg_Data_Formulas.xlsx" 
 bond_data = build_bond_dict_from_excel(file_path)
 
 # See structure of the data

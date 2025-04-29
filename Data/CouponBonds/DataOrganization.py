@@ -5,6 +5,7 @@ import datetime as dt
 from pathlib import Path
 from contextlib import contextmanager
 from typing import List
+import sys
 
 @contextmanager
 def open_folder(path: str | Path):
@@ -43,7 +44,7 @@ def organize_data(path: str|Path, folder_path: None) -> None:
             if sheet_name in ["Data", "Temp", "", " "]:
                 continue
             else:
-                rating: str = sheet_name.split(" ")[0]
+                rating: str = sheet_name.split("_")[0]
                 if rating == "NR":
                     continue
 
@@ -51,12 +52,13 @@ def organize_data(path: str|Path, folder_path: None) -> None:
 
                 # Changing the Directory
                 with open_folder(rating):
-                    file_path = os.path.join(os.getcwd(), sheet_name + ".csv")
+
+                    new_sheet_name = " ".join(sheet_name.split("_"))
 
                     sheet_df = excel_file.parse(sheet_name)
-                    sheet_df.to_csv(f"{sheet_name}.csv", index=False)
+                    sheet_df.to_csv(f"{new_sheet_name}.csv", index=False)
 
-def clean_folders(num_files: int = 4) -> None:
+def clean_folders(num_files: int = 5) -> None:
     """Cleaning the folders by removing the files that are not needed
     
     Args:
@@ -106,8 +108,8 @@ def combine_files() -> None:
                 df_info.index.name = None
                 df_info.name = df_info["Company"]
                 
-                df_info["Maturity Date"] = dt.datetime.strptime(df_info["Maturity Date"].split(" ")[0], "%Y-%m-%d")  # Remove spaces from the "Issue Date" column
-                df_info["Issue Date"] = dt.datetime.strptime(df_info["Issue Date"].split(" ")[0], "%Y-%m-%d")  # Remove spaces from the "Issue Date" column
+                df_info["Maturity Date"] = dt.datetime.strptime(df_info["Maturity Date"].split(" ")[0], "%m/%d/%Y")  # Remove spaces from the "Issue Date" column
+                df_info["Issue Date"] = dt.datetime.strptime(df_info["Issue Date"].split(" ")[0], "%m/%d/%Y")  # Remove spaces from the "Issue Date" column
                 df_info["Tenor (days)"] = (df_info["Maturity Date"] - df_info["Issue Date"]).days
 
                 # Creating the price and yield dataframe
@@ -143,6 +145,8 @@ def combine_files() -> None:
             price_df.drop("CUSIP", axis=0, inplace=True)
             yield_df.drop("CUSIP", axis=0, inplace=True)
 
+            price_df = price_df.dropna(axis=1, how='all')  # Drop columns that are completely empty
+            yield_df = yield_df.dropna(axis=1, how='all')  # Drop columns that are completely empty
 
 
             # Saving the dataframes
