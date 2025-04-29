@@ -51,7 +51,6 @@ def organize_data(path: str|Path, folder_path: None) -> None:
 
                 # Changing the Directory
                 with open_folder(rating):
-                    file_path = os.path.join(os.getcwd(), sheet_name + ".csv")
 
                     sheet_df = excel_file.parse(sheet_name)
                     sheet_df.to_csv(f"{sheet_name}.csv", index=False)
