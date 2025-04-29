@@ -125,7 +125,7 @@ class CIR(CIR_base):
     def calibrate(self):
         self.dataframe.apply(lambda x : x.calibrate())
     
-    def simulate(self, starting_rates:pd.Series|None = None) ->pd.Series:
+    def simulate(self, starting_rates:pd.Series|None = None) ->np.ndarray:
         """
         Simulate the CIR process using calibrated parameters.
         
@@ -142,18 +142,31 @@ class CIR(CIR_base):
             Simulated interest rates. Each row corresponds to a simulation, and each column corresponds to a time step.
         """
         # Calibrate the CIR process
-
-        # print(starting_rates)
+        if not hasattr(self, 'dataframe'):
+            self.calibrate()
 
         if starting_rates is None:
-            simulated_rates = self.dataframe.apply(lambda x : pd.Series(x.simulate(y)[0])).T
+            simulated_rates = self.dataframe.apply(lambda x : pd.Series(x.simulate()[0])).T
             starting_date = self.rates.index[0]
         else:
-            starting_date = starting_rates.index[0]
+            if len(starting_rates) != len(self.dataframe):
+                raise ValueError("Starting rates must have the same length as the dataframe.")
+            
+            starting_date = starting_rates.name
             starting_rates = starting_rates/100
-            simulated_rates = self.dataframe.apply(lambda x : pd.Series(x.simulate(y, starting_rate = starting_rates[x.name])[0])).T
 
-        simulated_rates.index = [starting_date + timedelta(days = i) for i in range(len(simulated_rates))] 
+            index = [starting_date + pd.Timedelta(days=i) for i in range(len(self.rates))]
 
-        print(simulated_rates)
+            simulated_rates = pd.DataFrame(columns=self.dataframe.index, index = index)
+            
+            for i, column in enumerate(starting_rates.index):
+
+                starting_rate = starting_rates[column]
+                model = self.dataframe[column]
+
+                # simulated_rates[column] = model.simulate(starting_rate=starting_rate)
+                simulated_array = model.simulate(starting_rate=starting_rate)[0]
+
+                simulated_rates[column] = simulated_array
+        
         return simulated_rates
