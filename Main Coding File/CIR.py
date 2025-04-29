@@ -100,7 +100,7 @@ class CIR_base:
             for t in range(1, len(self.rates)):
                 rates[i, t] = rates[i,t-1] + kappa * (theta - rates[i,t-1]) * delta_t + sigma * np.sqrt(delta_t) * np.sqrt(rates[i,t-1]) * Z[t-1]
 
-        return rates
+        return rates * 100
     
 class CIR(CIR_base):
     """
