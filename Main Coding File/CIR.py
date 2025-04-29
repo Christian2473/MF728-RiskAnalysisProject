@@ -28,15 +28,14 @@ class CIR_base:
         #setting up the parameters for OLS regression
         delta_rt = rates.diff().dropna()
         sqrt_rt = np.sqrt(rt)
-        delta_t = pd.Series(rates.index.to_series().diff().dropna().dt.days.values, index=delta_rt.index) / 360 * 12  # Ensure matching lengths
-        T = (rates.index[-1] - rates.index[0]).days / 360 * 12  # Total time period in years
+        sqrt_delta_t = np.sqrt(pd.Series(rates.index.to_series().diff().dropna().dt.days.values, index=delta_rt.index) / 360 * 12)  # Ensure matching lengths
 
         #setting up the OLS regression
-        y = delta_rt/sqrt_rt
+        y = delta_rt/(sqrt_rt * sqrt_delta_t)
         Y = np.array(y).reshape(-1, 1)
 
-        x1 = delta_t/sqrt_rt
-        x2 = sqrt_rt*delta_t
+        x1 = sqrt_delta_t/sqrt_rt
+        x2 = sqrt_rt*sqrt_delta_t
 
         X = np.array([x1, x2]).T
 
@@ -47,15 +46,16 @@ class CIR_base:
         # Extract the coefficients
         a, b = model.coef_[0]
 
+        residuals = Y - model.predict(X)
+
         # Calculate the parameters
         kappa = -b
         theta = a/kappa
-        sigma = np.sqrt(np.square(delta_rt/sqrt_rt).sum() / T)
         
         self.model = model
         self.theta = theta
         self.kappa = kappa
-        self.sigma = sigma
+        self.sigma = residuals.std()
 
     def simulate(self, N:int = 1, starting_rate:float = None) ->np.ndarray:
         """
@@ -125,7 +125,7 @@ class CIR(CIR_base):
     def calibrate(self):
         self.dataframe.apply(lambda x : x.calibrate())
     
-    def simulate(self, starting_rate:float = None) ->pd.Series:
+    def simulate(self, starting_rates:pd.Series|None = None) ->pd.Series:
         """
         Simulate the CIR process using calibrated parameters.
         
@@ -143,7 +143,17 @@ class CIR(CIR_base):
         """
         # Calibrate the CIR process
 
-        simulated_rates = self.dataframe.apply(lambda x : pd.Series(x.simulate()[0])).T
-        simulated_rates.index = [self.rates.index[0] + timedelta(days = i) for i in range(len(simulated_rates))] 
+        # print(starting_rates)
 
+        if starting_rates is None:
+            simulated_rates = self.dataframe.apply(lambda x : pd.Series(x.simulate(y)[0])).T
+            starting_date = self.rates.index[0]
+        else:
+            starting_date = starting_rates.index[0]
+            starting_rates = starting_rates/100
+            simulated_rates = self.dataframe.apply(lambda x : pd.Series(x.simulate(y, starting_rate = starting_rates[x.name])[0])).T
+
+        simulated_rates.index = [starting_date + timedelta(days = i) for i in range(len(simulated_rates))] 
+
+        print(simulated_rates)
         return simulated_rates

@@ -34,7 +34,7 @@ Strategy: Credit Diversified (5.00) (credit_diversified_5.00)
   Type: credit_diversified
   Target Duration: 5.00
   Achieved Duration: 6.46
-  Credit Allocations: BBB+: 16.7%, AA+: 16.7%, A+: 16.7%, A: 16.7%, BBB: 16.7%, AA-: 16.7%
+  Credit Allocations: BBB: 16.7%, BBB+: 16.7%, A: 16.7%, A+: 16.7%, AA-: 16.7%, AA+: 16.7%
 
 Strategy: Barbell Strategy (5.00) (barbell_5.00)
   Type: barbell
@@ -63,14 +63,14 @@ Bullet Strategy (5.00)    -3.38%          Inflation_Hike_2022 (-17.18%) Bull_Fla
 Average Value at Risk (% of Portfolio):
 Strategy                  Historical VaR  Normal VaR      t-dist VaR     
 ----------------------------------------------------------------------
-Duration Matched (3.00)   1.30%           1.25%           1.29%          
-Duration Matched (5.00)   4.58%           4.49%           4.63%          
-Duration Matched (7.00)   4.88%           4.98%           5.14%          
-Convexity Enhanced (5.00) 5.29%           4.90%           5.07%          
-VaR Optimized (3.00%)     0.87%           0.89%           0.94%          
-Credit Diversified (5.00) 4.51%           4.45%           4.58%          
-Barbell Strategy (5.00)   4.00%           3.69%           3.82%          
-Bullet Strategy (5.00)    3.81%           3.95%           4.08%          
+Duration Matched (3.00)   1.32%           1.23%           1.27%          
+Duration Matched (5.00)   4.60%           4.40%           4.55%          
+Duration Matched (7.00)   4.75%           4.90%           5.06%          
+Convexity Enhanced (5.00) 5.14%           4.82%           4.99%          
+VaR Optimized (3.00%)     0.86%           0.83%           0.86%          
+Credit Diversified (5.00) 4.48%           4.48%           4.61%          
+Barbell Strategy (5.00)   3.89%           3.60%           3.73%          
+Bullet Strategy (5.00)    3.91%           3.98%           4.11%          
 
 SCENARIO-SPECIFIC PERFORMANCE:
 --------------------------------------------------
@@ -210,7 +210,7 @@ KEY FINDINGS AND RECOMMENDATIONS:
    Worst-case scenario: Inflation_Hike_2022 (-5.35%)
 
 3. Lowest Risk Strategy (by VaR): VaR Optimized (3.00%)
-   Historical VaR: 0.87%
+   Historical VaR: 0.86%
 
 Recommendations:
 - The VaR Optimized (3.00%) strategy showed the best overall performance
