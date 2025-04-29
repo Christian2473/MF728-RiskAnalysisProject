@@ -1735,6 +1735,140 @@ class ScenarioAnalysis:
                                                reference_date,
                                                description)
 
+    def create_cir_simulation_scenario(self, scenario_name="CIR_Simulation", num_simulations=100,
+                                       simulation_length=180, reference_date=None, description=None):
+        """
+        Create a scenario based on CIR model simulations, running multiple simulations and averaging results.
+
+        Parameters:
+            scenario_name (str): Name of the scenario
+            num_simulations (int): Number of CIR simulations to run and average
+            simulation_length (int): Length of simulation period in days
+            reference_date (datetime, optional): Reference date for the scenario
+            description (str, optional): Description of the scenario
+
+        Returns:
+            YieldCurve: The yield curve under the CIR simulation scenario
+        """
+
+        if reference_date is None:
+            reference_date = self.base_curve.reference_date
+
+        # Get historical treasury data for CIR calibration
+        try:
+            data_file = (Path(
+                __file__).parent.parent / "Data/TreasuryData/Cleaned-Data/cleaned_treasury_data.csv").resolve()
+            treasury_data = pd.read_csv(data_file)
+            treasury_data['Date'] = pd.to_datetime(treasury_data['Date'])
+
+            # Sort data and use recent data
+            treasury_data = treasury_data.sort_values('Date')
+            recent_data = treasury_data.tail(500)
+
+            # Create DataFrame to use with CIR model from CIR.py and extract only the essential columns for tenors we want to model
+            tenor_columns = {'2 Yr': 2, '5 Yr': 5, '10 Yr': 10}
+            cir_data = pd.DataFrame()
+
+            for col, tenor in tenor_columns.items():
+                if col in recent_data.columns:
+                    cir_data[tenor] = recent_data[col]
+
+            cir_data.index = recent_data['Date']
+
+            # Add error handling for CIR model
+            try:
+                # Initialize and calibrate CIR model using imported class
+                cir_model = CIR(cir_data)
+                cir_model.calibrate()
+
+                # Run simulations with error handling
+                all_simulations = []
+                successful_sims = 0
+
+                # Try to get some valid simulations, seems like sometime because of the numerical issue it could fail to create simulations
+                for i in range(num_simulations * 2):
+                    try:
+                        with np.errstate(invalid='ignore', divide='ignore'):
+                            simulation = cir_model.simulate(cir_data.iloc[-1, :])
+
+                        # Check if simulation has valid values
+                        if not np.isnan(simulation.values).any() and not np.isinf(simulation.values).any():
+                            all_simulations.append(simulation)
+                            successful_sims += 1
+
+                        if successful_sims >= num_simulations:
+                            break
+                    except Exception as sim_error:
+                        print(f"Simulation {i} failed: {sim_error}")
+                        continue
+
+                # If we have at least some valid simulations, use them
+                if len(all_simulations) > 0:
+                    print(f"Successfully completed {len(all_simulations)} CIR simulations")
+
+                    # Average the simulations
+                    avg_simulation = pd.DataFrame(0, index=all_simulations[0].index, columns=all_simulations[0].columns)
+                    for sim in all_simulations:
+                        avg_simulation += sim
+                    avg_simulation = avg_simulation / len(all_simulations)
+
+                    # Extract rates for projected date (simulation_length days ahead)
+                    projection_index = min(simulation_length, len(avg_simulation) - 1)
+                    projected_rates = avg_simulation.iloc[projection_index] / 100  # Convert percentage to decimal
+
+                    # Create yield curve from the projected rates
+                    simulated_tenors = [float(col) for col in avg_simulation.columns]
+
+                    # For a smoother curve, interpolate to standard tenors
+                    full_tenors = [0.5, 1, 2, 3, 5, 7, 10, 30]
+                    interp = interpolate.interp1d(
+                        simulated_tenors,
+                        projected_rates.values,
+                        bounds_error=False,
+                        fill_value=(projected_rates.values[0], projected_rates.values[-1])
+                    )
+
+                    full_rates = interp(full_tenors)
+
+                    # Create appropriate yield curve type
+                    if isinstance(self.base_curve, TreasuryYieldCurve):
+                        scenario_curve = TreasuryYieldCurve(full_tenors, full_rates, reference_date)
+                    elif isinstance(self.base_curve, SpotRateYieldCurve):
+                        scenario_curve = SpotRateYieldCurve(full_tenors, full_rates, reference_date=reference_date)
+                    elif isinstance(self.base_curve, ForwardRateYieldCurve):
+                        scenario_curve = ForwardRateYieldCurve(full_tenors, full_rates, reference_date=reference_date)
+                    else:
+                        scenario_curve = YieldCurve(full_tenors, full_rates, reference_date,
+                                                    curve_type=f"{self.base_curve.curve_type} - {scenario_name}")
+
+                    # Create description
+                    if description is None:
+                        description = (f"CIR Model Scenario based on {len(all_simulations)} successful simulations. "
+                                       f"Projected rates reflect the average outcome {simulation_length} days into the future.")
+
+                    # Store the scenario
+                    self.scenarios[scenario_name] = {
+                        'curve': scenario_curve,
+                        'shift_type': 'cir_simulation',
+                        'magnitude': simulation_length,
+                        'description': description,
+                        'cir_simulations': avg_simulation  # Store the full simulation results for reference
+                    }
+
+                    return scenario_curve
+                else:
+                    raise ValueError("No valid CIR simulations completed")
+
+            except Exception as cir_error:
+                print(f"CIR model error: {cir_error}")
+                raise  # Re-raise to be caught by outer exception handler
+
+        except Exception as e:
+            print(f"Error creating CIR simulation scenario: {e}")
+            print("Falling back to parallel shift scenario")
+            # Fallback to a simple parallel shift scenario if CIR model fails
+            return self.create_parallel_shift_scenario(50, scenario_name, reference_date)
+
     def evaluate_bond_under_scenario(self, cash_flows, times, base_ytm, scenario_name, credit_rating=None):
         """
         Evaluate a single bond under a specific scenario with a more realistic approach.
@@ -4863,7 +4997,6 @@ def main():
     ]) / 100  # Convert percentage to decimal
 
     # Step 1.2: Load and process actual corporate bond data from Price and Yield CSV files
-    # FIX FOR PROBLEM 4: Use actual corporate bond data instead of synthetic data
 
     # Define credit ratings to analyze
     credit_ratings = ['A', 'A-', 'A+', 'AA-', 'AA+', 'BBB', 'BBB-', 'BBB+', 'BB-', 'BB+']
@@ -4997,7 +5130,6 @@ def main():
     plt.close(fig)
 
     # Step 2.4: Create corporate yield curves for different credit ratings using actual data
-    # FIX FOR PROBLEM 4: Use actual bond data to create yield curves
     corporate_curves = {}
 
     for rating, bonds in bonds_by_rating.items():
@@ -5071,7 +5203,6 @@ def main():
     print("Step 3: Creating bond portfolios using actual market data...")
 
     # Step 3.1: Create bonds based on actual market data
-    # FIX FOR PROBLEM 5: Use actual data to create bonds instead of synthetic data
     bonds = {}
 
     for bond_id, bond_data in corporate_bonds.items():
@@ -5154,7 +5285,6 @@ def main():
     bond_metrics.to_csv(os.path.join(output_dir, "bond_metrics.csv"), index=False)
 
     # Step 3.3: Create different portfolios using actual bond data
-    # FIX FOR PROBLEM 6: Use actual data to create portfolios
 
     # Filter bonds to only include those with complete metrics
     valid_bonds = {}
@@ -5355,7 +5485,6 @@ def main():
     print("Step 4: Calculating Value at Risk (VaR) using actual market data...")
 
     # Step 4.1: Use actual return data for VaR calculations
-    # FIX FOR PROBLEM 7: Use actual historical data for returns
 
     # Calculate historical returns for each bond
     bond_returns = {}
@@ -5517,7 +5646,6 @@ def main():
     print("Step 5: Performing scenario analysis using actual market data...")
 
     # Step 5.1: Create scenario analyzer for each portfolio using actual data
-    # FIX FOR PROBLEM 8: Use actual data for scenario analysis
 
     scenario_results = {}
 
@@ -5552,6 +5680,13 @@ def main():
         steepener_scenario = scenario_analyzer.create_steepener_scenario(100)
         flattener_scenario = scenario_analyzer.create_flattener_scenario(100)
         inversion_scenario = scenario_analyzer.create_inversion_scenario(100)
+
+        # Create CIR simulation scenario
+        cir_scenario = scenario_analyzer.create_cir_simulation_scenario(
+            "CIR_Simulation_100",
+            num_simulations=100,
+            simulation_length=180  # 6 months projection
+        )
 
         # Evaluate portfolio under all scenarios
         try:
@@ -5600,7 +5735,8 @@ def main():
         'Parallel_Up_100bps',
         'Bull_Steepener_100bps',
         'Bear_Flattener_100bps',
-        'Inversion_100bps'
+        'Inversion_100bps',
+        'CIR_Simulation_100'
     ]
 
     for port_name, result in scenario_results.items():
@@ -5638,7 +5774,6 @@ def main():
     print("Step 6: Evaluating risk management strategies using actual market data...")
 
     # Step 6.1: Initialize risk management module with actual data
-    # FIX FOR PROBLEM 9: Use actual market data for risk management strategies
 
     risk_manager = RiskManagementModule(treasury_curve)
 

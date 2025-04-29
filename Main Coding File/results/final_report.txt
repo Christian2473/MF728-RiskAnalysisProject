@@ -43,6 +43,9 @@ Scenario: Bear_Flattener_100bps
 Scenario: Inversion_100bps
   Best Portfolio: aggressive
   Worst Portfolio: conservative
+Scenario: CIR_Simulation_100
+  Best Portfolio: conservative
+  Worst Portfolio: aggressive
 
 5. Risk Management Strategy Performance
 --------------------------------------------------
