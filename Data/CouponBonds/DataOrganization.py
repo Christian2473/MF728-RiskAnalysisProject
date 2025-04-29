@@ -5,6 +5,7 @@ import datetime as dt
 from pathlib import Path
 from contextlib import contextmanager
 from typing import List
+import sys
 
 @contextmanager
 def open_folder(path: str | Path):
@@ -43,7 +44,7 @@ def organize_data(path: str|Path, folder_path: None) -> None:
             if sheet_name in ["Data", "Temp", "", " "]:
                 continue
             else:
-                rating: str = sheet_name.split(" ")[0]
+                rating: str = sheet_name.split("_")[0]
                 if rating == "NR":
                     continue
 
@@ -52,10 +53,12 @@ def organize_data(path: str|Path, folder_path: None) -> None:
                 # Changing the Directory
                 with open_folder(rating):
 
-                    sheet_df = excel_file.parse(sheet_name)
-                    sheet_df.to_csv(f"{sheet_name}.csv", index=False)
+                    new_sheet_name = " ".join(sheet_name.split("_"))
 
-def clean_folders(num_files: int = 4) -> None:
+                    sheet_df = excel_file.parse(sheet_name)
+                    sheet_df.to_csv(f"{new_sheet_name}.csv", index=False)
+
+def clean_folders(num_files: int = 5) -> None:
     """Cleaning the folders by removing the files that are not needed
     
     Args:
