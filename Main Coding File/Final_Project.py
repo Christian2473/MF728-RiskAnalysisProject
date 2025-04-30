@@ -1777,7 +1777,9 @@ class ScenarioAnalysis:
 
             scenario_data.sort_index(ascending=True, inplace=True)
 
-            print(scenario_name)
+            scenario_data.index.name = 'Date'
+
+            print(scenario_data)
 
             # Create DataFrame to use with CIR model from CIR.py and extract only the essential columns for tenors we want to model
             tenor_columns = {'2 Yr': 2, '5 Yr': 5, '10 Yr': 10}
