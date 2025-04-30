@@ -1770,16 +1770,10 @@ class ScenarioAnalysis:
                 start_date = pd.to_datetime('2022-01-01')
                 end_date = pd.to_datetime('2022-12-31')
             else:
-                start_date = pd.to_datetime(input("Please enter the start date (YYYY-MM-DD): "))
-                end_date = pd.to_datetime(input("Please enter the start date (YYYY-MM-DD): "))
+                start_date = treasury_data.index[-200]
+                end_date = treasury_data.index[-1]
 
             scenario_data = treasury_data[(treasury_data.index >= start_date) & (treasury_data.index <= end_date)]
-
-            scenario_data.sort_index(ascending=True, inplace=True)
-
-            scenario_data.index.name = 'Date'
-
-            print(scenario_data)
 
             # Create DataFrame to use with CIR model from CIR.py and extract only the essential columns for tenors we want to model
             tenor_columns = {'2 Yr': 2, '5 Yr': 5, '10 Yr': 10}
@@ -1789,7 +1783,7 @@ class ScenarioAnalysis:
                 if col in scenario_data.columns:
                     cir_data[tenor] = scenario_data[col]
 
-            cir_data.index = scenario_data['Date']
+            cir_data.index = scenario_data.index
 
             # Add error handling for CIR model
             try:
@@ -1884,6 +1878,7 @@ class ScenarioAnalysis:
             print("Falling back to parallel shift scenario")
             # Fallback to a simple parallel shift scenario if CIR model fails
             return self.create_parallel_shift_scenario(50, scenario_name, reference_date)
+        
 
     def evaluate_bond_under_scenario(self, cash_flows, times, base_ytm, scenario_name, credit_rating=None):
         """

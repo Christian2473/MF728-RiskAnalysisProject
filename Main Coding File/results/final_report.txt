@@ -41,9 +41,12 @@ Scenario: Bear_Flattener_100bps
 Scenario: Inversion_100bps
   Best Portfolio: aggressive
   Worst Portfolio: balanced
+Scenario: CIR_COVID
+  Best Portfolio: aggressive
+  Worst Portfolio: balanced
 Scenario: CIR_RATE_HIKE
-  Best Portfolio: balanced
-  Worst Portfolio: aggressive
+  Best Portfolio: aggressive
+  Worst Portfolio: balanced
 
 5. Risk Management Strategy Performance
 --------------------------------------------------
