@@ -5695,6 +5695,9 @@ def main():
         flattener_scenario = scenario_analyzer.create_flattener_scenario(100)
         inversion_scenario = scenario_analyzer.create_inversion_scenario(100)
 
+        covid_scenario = scenario_analyzer.create_cir_simulation_scenario("CIR_COVID", num_simulations=100)
+        rate_hike_scenario = scenario_analyzer.create_cir_simulation_scenario("CIR_RATE_HIKE", num_simulations=100)
+
         # Create CIR simulation scenario
         cir_scenario = scenario_analyzer.create_cir_simulation_scenario(
             "CIR_RATE_HIKE",
