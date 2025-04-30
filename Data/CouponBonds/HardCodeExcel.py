@@ -4,5 +4,4 @@ wb = openpyxl.load_workbook("Data/CouponBonds/Temp_Bloomberg_Data_hardcoded.xlsx
 
 wb.save("Data\CouponBonds\Temp_Bloomberg_Data.xlsx")
 
-
-    
+wb.close()    

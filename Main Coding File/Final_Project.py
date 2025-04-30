@@ -1735,7 +1735,7 @@ class ScenarioAnalysis:
                                                reference_date,
                                                description)
 
-    def create_cir_simulation_scenario(self, scenario_name="CIR_Simulation", num_simulations=100,
+    def create_cir_simulation_scenario(self, scenario_name="CIR_COVID", num_simulations=100,
                                        simulation_length=180, reference_date=None, description=None):
         """
         Create a scenario based on CIR model simulations, running multiple simulations and averaging results.
@@ -1761,19 +1761,33 @@ class ScenarioAnalysis:
             treasury_data = pd.read_csv(data_file)
             treasury_data['Date'] = pd.to_datetime(treasury_data['Date'])
 
-            # Sort data and use recent data
-            treasury_data = treasury_data.sort_values('Date')
-            recent_data = treasury_data.tail(500)
+            treasury_data.set_index('Date', inplace=True)
+
+            if scenario_name == "CIR_COVID":
+                start_date = pd.to_datetime('2020-02-19')
+                end_date = pd.to_datetime('2020-03-23')
+            elif scenario_name == "CIR_RATE_HIKE":
+                start_date = pd.to_datetime('2022-01-01')
+                end_date = pd.to_datetime('2022-12-31')
+            else:
+                start_date = pd.to_datetime(input("Please enter the start date (YYYY-MM-DD): "))
+                end_date = pd.to_datetime(input("Please enter the start date (YYYY-MM-DD): "))
+
+            scenario_data = treasury_data[(treasury_data.index >= start_date) & (treasury_data.index <= end_date)]
+
+            scenario_data.sort_index(ascending=True, inplace=True)
+
+            print(scenario_name)
 
             # Create DataFrame to use with CIR model from CIR.py and extract only the essential columns for tenors we want to model
             tenor_columns = {'2 Yr': 2, '5 Yr': 5, '10 Yr': 10}
             cir_data = pd.DataFrame()
 
             for col, tenor in tenor_columns.items():
-                if col in recent_data.columns:
-                    cir_data[tenor] = recent_data[col]
+                if col in scenario_data.columns:
+                    cir_data[tenor] = scenario_data[col]
 
-            cir_data.index = recent_data['Date']
+            cir_data.index = scenario_data['Date']
 
             # Add error handling for CIR model
             try:
@@ -5683,7 +5697,7 @@ def main():
 
         # Create CIR simulation scenario
         cir_scenario = scenario_analyzer.create_cir_simulation_scenario(
-            "CIR_Simulation_100",
+            "CIR_RATE_HIKE",
             num_simulations=100,
             simulation_length=180  # 6 months projection
         )
@@ -5736,7 +5750,8 @@ def main():
         'Bull_Steepener_100bps',
         'Bear_Flattener_100bps',
         'Inversion_100bps',
-        'CIR_Simulation_100'
+        'CIR_COVID',
+        'CIR_RATE_HIKE'
     ]
 
     for port_name, result in scenario_results.items():
